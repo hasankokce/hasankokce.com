@@ -1,0 +1,4 @@
+import {pageMetadata} from '../seo';
+import {Shell} from '../site';import {getSettings} from '../store';import {Prose} from '../prose';
+export const dynamic='force-dynamic';export async function generateMetadata(){const s=await getSettings();return pageMetadata(s,s.ui.privacyTitle,s.ui.privacyDescription,'/gizlilik')}
+export default async function Privacy(){const s=await getSettings();return <Shell settings={s}><main className="main"><article className="reading"><span className="section-label">{s.ui.privacyKicker}</span><h1>{s.ui.privacyTitle}</h1><Prose body={s.privacy}/><h2>{s.ui.privacyContactTitle}</h2><p className="prose">{s.ui.privacyContactBody}</p>{s.email&&<a className="contact" href={'mailto:'+s.email}>{s.email}</a>}</article></main></Shell>}

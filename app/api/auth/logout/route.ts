@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server';import {cookieName} from '../../../../runtime/session';import {env} from '../../../../runtime/platform';
+export async function POST(req:Request){if(req.headers.get('origin')!==env.SITE_ORIGIN)return new Response('Geçersiz istek',{status:403});const r=NextResponse.redirect(new URL('/',env.SITE_ORIGIN),303);r.cookies.set(cookieName,'',{httpOnly:true,secure:env.SITE_ORIGIN.startsWith('https:'),sameSite:'lax',path:'/',maxAge:0});return r}

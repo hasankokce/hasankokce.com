@@ -1,0 +1,21 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+data/
+private-export/
+*.tsbuildinfo
+
+# Local files and runtime backups
+.DS_Store
+*.log
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.pem
+*.key
+coverage/
+outputs/
+tmp/

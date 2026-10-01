@@ -1,0 +1,618 @@
+{
+  "management": {
+    "logo": "",
+    "logoAlt": "Hasan Kökçe",
+    "monogram": "hk.",
+    "favicon": "",
+    "heroImageAlt": "Yeşil camdan modüler formlar",
+    "heroArtIndex": "[ HK—01 ]",
+    "background": "#f7f8f5",
+    "foreground": "#20221f",
+    "surface": "#f0f2ed",
+    "muted": "#596158",
+    "font": "sans",
+    "homeSections": [
+      {
+        "id": "hero",
+        "visible": true
+      },
+      {
+        "id": "topics",
+        "visible": true
+      },
+      {
+        "id": "featured",
+        "visible": false
+      },
+      {
+        "id": "latest",
+        "visible": true
+      },
+      {
+        "id": "ad",
+        "visible": true
+      },
+      {
+        "id": "prompts",
+        "visible": true
+      },
+      {
+        "id": "about",
+        "visible": true
+      },
+      {
+        "id": "social",
+        "visible": true
+      }
+    ],
+    "latestCount": 4,
+    "heroReadUrl": "/yazilar",
+    "heroAboutUrl": "/hakkimda",
+    "toolsGuideUrl": "/yazi/iphone-kestirmeleri-nasil-eklenir",
+    "showToolsIntro": true,
+    "showCollaboration": true,
+    "showContactForm": true,
+    "showAboutSocial": true,
+    "showContactSocial": true,
+    "showToc": true,
+    "showUpdatedDate": true,
+    "showRelated": true,
+    "showFooterRss": true,
+    "showFooterAdmin": false,
+    "pageSeo": {
+      "/": {
+        "title": "",
+        "description": ""
+      },
+      "/yazilar": {
+        "title": "",
+        "description": ""
+      },
+      "/promptlar": {
+        "title": "",
+        "description": ""
+      },
+      "/arac-kutusu": {
+        "title": "",
+        "description": ""
+      },
+      "/kullandiklarim": {
+        "title": "",
+        "description": ""
+      },
+      "/hakkimda": {
+        "title": "",
+        "description": ""
+      },
+      "/iletisim": {
+        "title": "",
+        "description": ""
+      },
+      "/gizlilik": {
+        "title": "",
+        "description": ""
+      }
+    },
+    "premiumMotion": true
+  },
+  "featuredPromptIds": [
+    "portrait-studio",
+    "product-headphones",
+    "avatar-clay",
+    "portrait-neon"
+  ],
+  "promptHomeTitle": "Videoda gördün, burada dene.",
+  "promptHomeDescription": "Bir görsel seç, promptu kopyala ve kendi fikrine uyarla.",
+  "prompts": [
+    {
+      "id": "portrait-studio",
+      "slug": "siyah-beyaz-studyo-portresi",
+      "title": "Siyah beyaz stüdyo portresi",
+      "description": "Yumuşak yan ışık, sade bir fon ve doğal cilt dokusuyla sinematik bir portre.",
+      "category": "Portre",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create a cinematic black-and-white studio portrait of a fictional adult male technology creator. Chest-up framing, plain charcoal background, soft side light from a large window, gentle shadow falloff, natural skin texture, simple black crew-neck shirt, relaxed expression looking slightly away from camera. 85mm portrait lens look, restrained film grain, editorial photography. Vertical 4:5 composition. No text, no logo, no watermark.",
+      "notes": "Bu örnekteki kişi kurgusal. Kendi fotoğrafınla çalışacaksan referans görsel destekleyen bir araç kullan ve ilk cümleyi “Create a cinematic black-and-white studio portrait of the person in the uploaded reference photo, preserving their facial features” olarak değiştir.\nReferans için yüzün net göründüğü, filtresiz bir fotoğraf seç.\nFazla pürüzsüz bir sonuç alırsan doğal cilt dokusu isteğini koru, güzellik filtresi istemediğini belirt.\n4:5 oranı dikey bir gönderi içindir; hikâye için 9:16 isteyebilirsin.",
+      "image": "/images/prompt-portrait.webp",
+      "imageAlt": "Yapay zekâyla oluşturulmuş siyah beyaz stüdyo portresi örneği",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "product-headphones",
+      "slug": "minimal-urun-fotografi",
+      "title": "Minimal ürün fotoğrafı",
+      "description": "Grafit kulaklık, açık renk bir kaide ve ince lime ışıkla sade bir ürün sahnesi.",
+      "category": "Ürün",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create a premium studio product photograph of fictional unbranded over-ear headphones in matte graphite. Place the headphones on a low off-white stone pedestal against a warm white seamless background. Add one narrow lime-green rim light, soft daylight from the left, physically plausible soft shadows and detailed material texture. Three-quarter view, generous negative space, clean technology editorial aesthetic. Vertical 4:5 composition. No text, no logo, no watermark.",
+      "notes": "“Over-ear headphones” bölümünü göstermek istediğin ürünle değiştirebilirsin.\nGerçek ürünün şeklini korumak için destekleyen araçlarda referans fotoğraf kullan. Yapay zekâ düğme, bağlantı noktası ve ölçüleri değiştirebilir; yayınlamadan önce karşılaştır.\n“Lime-green rim light” ifadesini kendi marka renginle değiştirebilirsin.\nBu görsel kurgusal bir üründür; gerçek bir ürün fotoğrafı veya inceleme kanıtı değildir.",
+      "image": "/images/prompt-product.webp",
+      "imageAlt": "Yapay zekâyla oluşturulmuş lime kenar ışıklı grafit kulaklık ürün sahnesi",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "avatar-clay",
+      "slug": "uc-boyutlu-kil-avatar",
+      "title": "3D kil avatar",
+      "description": "Mat yüzeyler ve küçük yeşil detaylarla yumuşak hatlı bir profil karakteri.",
+      "category": "3D",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create a stylized 3D avatar bust of a fictional adult technology creator wearing a charcoal hoodie and round glasses. Friendly calm expression, simplified sculpted forms, matte clay materials, subtle lime-green accents on the hoodie drawstrings. Center the bust on a pale gray background with soft studio lighting and gentle ambient shadows. Refined collectible character aesthetic, no oversized accessories. Vertical 4:5 composition. No text, no logo, no watermark.",
+      "notes": "Gözlük, saç ve kıyafet tanımını kendine göre düzenle. Bu örnek belirli bir kişiyi temsil etmez.\nKendi yüzüne benzeyen bir avatar için referans destekleyen bir araç kullan; başkasının fotoğrafını izinsiz yükleme.\nProfil fotoğrafında kullanacaksan 1:1 oranını iste ve daire biçiminde kırpılacağı için kenarlarda boşluk bırak.\nAynı metin her çalıştırmada farklı bir sonuç verebilir. Önce kompozisyonu seç, sonra ayrıntıları düzenle.",
+      "image": "/images/prompt-avatar.webp",
+      "imageAlt": "Yapay zekâyla oluşturulmuş koyu kapüşonlu ve yuvarlak gözlüklü 3D kil avatar",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "portrait-neon",
+      "slug": "neon-isikli-gece-portresi",
+      "title": "Neon ışıklı gece portresi",
+      "description": "Yağmurlu bir sokakta turkuaz ve sıcak turuncu ışıklarla sinematik bir portre.",
+      "category": "Portre",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create a cinematic editorial portrait of a fictional adult woman in a charcoal raincoat on a rainy city street at night. Chest-up composition, calm expression, natural skin texture, soft cyan neon light from the left and warm amber light from the right. Wet pavement reflections and distant defocused lights, no readable signs. Keep the face sharp and the background softly blurred, realistic photography with restrained color grading. Vertical 4:5 composition. No text, no logo, no watermark.",
+      "notes": "Kendi fotoğrafını kullanacaksan ilk cümledeki kurgusal kişi tanımını referans fotoğraftaki kişi olarak değiştir.\nYüz fazla karanlık kalırsa yüzü aydınlatan yumuşak bir dolgu ışığı iste.\nRenkleri değiştirmek için cyan ve amber kelimelerini düzenle.\nGece atmosferini korumak için aynı anda çok fazla renk veya ışık ekleme.",
+      "image": "/images/prompt-neon.webp",
+      "imageAlt": "Turkuaz ve turuncu ışıklarla aydınlatılmış kurgusal kadın gece portresi",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "desk-isometric",
+      "slug": "izometrik-calisma-odasi",
+      "title": "İzometrik çalışma odası",
+      "description": "Küçük bir çalışma alanını yukarıdan görülen ayrıntılı bir 3D dioramaya dönüştür.",
+      "category": "3D",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create an isometric 3D diorama of a compact technology creator's home studio, shown as a cutaway room floating on a plain pale gray background. Include a walnut desk, an unbranded monitor with a simple abstract green screen, a compact microphone on an arm, a charcoal ergonomic chair, one leafy plant, and a warm desk lamp. Carefully arranged cables, realistic miniature materials, soft daylight, clean architectural visualization. Entire room visible with generous margins. Vertical 4:5 composition. No text, no logo, no watermark.",
+      "notes": "Masa, sandalye ve ışık tanımlarını kendi odana göre değiştirebilirsin.\nİzometrik görünümü korumak için kamerayı oda seviyesine indiren ek ifadeler kullanma.\nDaha sade bir sonuç için obje sayısını azalt.\nGerçek oda planında kullanacaksan ölçüleri ayrıca doğrula; görsel bir mimari proje değildir.",
+      "image": "/images/prompt-desk.webp",
+      "imageAlt": "Masa, mikrofon, sandalye ve bitki içeren izometrik minyatür çalışma odası",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "controller-exploded",
+      "slug": "oyun-kumandasi-patlatilmis-gorunum",
+      "title": "Oyun kumandası: katman katman",
+      "description": "Kurgusal bir oyun kumandasını havada ayrılmış katmanlarla gösteren teknik bir görsel.",
+      "category": "Ürün",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create a premium conceptual exploded-view product render of a fictional unbranded game controller. The matte graphite top shell, lime-green buttons, analog sticks, simplified internal circuit board and lower shell are neatly separated along one vertical axis, aligned to show how the layers relate. Three-quarter camera view, charcoal studio background, soft edge lighting, carefully controlled reflections and crisp material detail. Clean balanced composition, not a technical blueprint. Vertical 4:5 composition. No labels, no text, no logo, no watermark.",
+      "notes": "Kumanda tanımını fare, kulaklık veya başka bir küçük cihazla değiştirebilirsin.\nKatmanlar birbirine karışırsa parça sayısını azaltıp aralarındaki mesafeyi artırmasını iste.\nBu görsel kavramsaldır; iç donanımı gerçek bir ürünün söküm şeması olarak kullanma.\nTeknik içerikte kullanacaksan parça adlarını ve yerleşimini ayrıca kontrol et.",
+      "image": "/images/prompt-controller.webp",
+      "imageAlt": "Grafit renkli kurgusal oyun kumandasının havada ayrılmış parçaları",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "paper-city",
+      "slug": "kagit-kesim-istanbul",
+      "title": "Kağıt katmanlarında İstanbul",
+      "description": "Boğaz, vapur ve şehir silüetini renkli kağıt katmanlarıyla yeniden yorumla.",
+      "category": "İllüstrasyon",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create an intricate layered paper-cut illustration inspired by Istanbul at golden hour. A small ferry crosses turquoise water in the foreground; a stylized Galata Tower, domed roof silhouettes and tightly clustered warm-toned buildings form the middle layers. Soft peach sky behind them. Visible paper edges, subtle cast shadows between layers, tactile matte paper texture, harmonious teal, terracotta and cream palette. A handcrafted editorial illustration rather than a literal map. Vertical 4:5 composition. No text, no logo, no watermark.",
+      "notes": "Şehir adını ve simge yapıları değiştirerek kendi şehrine uyarlayabilirsin.\nKağıt hissi kaybolursa visible paper edges ve matte paper texture ifadelerini koru.\nBu kompozisyon temsili; yapıların gerçek konumlarını gösteren bir harita değil.\nPaylaşımın üzerine yazı eklemek istiyorsan gökyüzünde daha fazla boşluk iste.",
+      "image": "/images/prompt-paper-city.webp",
+      "imageAlt": "Vapur, Galata Kulesi ve İstanbul silüetini gösteren kağıt kesim illüstrasyon",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "keyboard-macro",
+      "slug": "mekanik-klavye-makro-cekimi",
+      "title": "Mekanik klavyeye yakından bak",
+      "description": "Tuş dokusunu ve küçük ışık detaylarını öne çıkaran yakın plan teknoloji görseli.",
+      "category": "Ürün",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create an extreme close-up macro product photograph of an unbranded mechanical keyboard. Show a small diagonal section of blank matte charcoal keycaps with one lime-green keycap in sharp focus. Fine plastic texture, realistic key spacing, softly blurred neighboring keys, subtle cool studio illumination and a warm edge highlight. Low camera angle at keycap height, understated premium technology editorial mood. Vertical 4:5 composition. No letters on keys, no text, no logo, no watermark.",
+      "notes": "Tek renkli vurgu için lime-green yerine istediğin rengi yaz.\nNet alan çok dar kalırsa daha fazla tuşun odakta olmasını iste.\nBu örnekte tuşlar bilinçli olarak yazısız; harf istersen oluşan karakterleri kontrol et.\nGerçek ürün incelemesinde kendi klavyenin fotoğrafını kullan; bu görsel temsili bir sahnedir.",
+      "image": "/images/prompt-keyboard.webp",
+      "imageAlt": "Grafit tuşlar arasında tek yeşil tuşun odakta olduğu klavye makro görseli",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "miniature-cafe",
+      "slug": "minyatur-kahve-dukkani",
+      "title": "Minyatür kahve dükkanı",
+      "description": "Sıcak ışıklı küçük bir kahve dükkanını koleksiyonluk bir diorama gibi oluştur.",
+      "category": "3D",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create a charming detailed miniature coffee shop diorama on a small square wooden base, isolated against a warm off-white background. Show an open-front tiny shop with a curved sage-green counter, a miniature espresso machine, two terracotta cups, a wooden stool, small shelves of coffee bags and one trailing plant. Warm interior lighting and soft studio daylight, handcrafted clay and wood textures, realistic miniature scale, three-quarter view. Vertical 4:5 composition. No people, no readable packaging, no text, no logo, no watermark.",
+      "notes": "Kahve dükkanını kitapçı veya çiçekçi olarak değiştirip objeleri buna göre düzenleyebilirsin.\nMinyatür etkisi için küçük bir kaide ve üç çeyrek kamera açısı isteğini koru.\nÇok kalabalık sonuçlarda raf ve aksesuar sayısını azalt.\nMarka adını görsel üretiminden sonra ayrı bir tasarım aracında eklemek daha kontrollü olabilir.",
+      "image": "/images/prompt-cafe.webp",
+      "imageAlt": "Ahşap kaide üzerinde sıcak ışıklı minyatür kahve dükkanı",
+      "videoUrl": "",
+      "visible": true
+    },
+    {
+      "id": "abstract-wallpaper",
+      "slug": "akiskan-cam-duvar-kagidi",
+      "title": "Akışkan cam duvar kağıdı",
+      "description": "Telefon ekranına uyarlanabilen, şeffaf cam kıvrımları ve yumuşak renklerden oluşan soyut bir görsel.",
+      "category": "Soyut",
+      "tool": "Görsel üreten yapay zekâ araçları",
+      "prompt": "Create an abstract premium wallpaper featuring one flowing translucent glass ribbon twisting gently through a pale gray space. The glass transitions from clear to soft lime green with a subtle cool blue reflection. Smooth organic curves, realistic refraction, soft caustic light on the background, spacious calm composition. Keep the upper third especially uncluttered for an optional clock overlay. Vertical 4:5 composition, high detail, no objects other than the glass ribbon. No text, no logo, no watermark.",
+      "notes": "Telefon duvar kağıdı için 4:5 yerine cihazına uygun dikey oranı, örneğin 9:16, yaz.\nSaat ve bildirimler için üst bölümde boşluk bırakılmasını iste.\nRenkleri değiştirebilir; koyu tema için pale gray space yerine dark charcoal space kullanabilirsin.\nGörseli duvar kağıdı olarak ayarlarken kırpma ve okunabilirliği telefonda kontrol et.",
+      "image": "/images/prompt-glass.webp",
+      "imageAlt": "Açık gri fonda yeşil ve mavi yansımalar taşıyan şeffaf cam şerit",
+      "videoUrl": "",
+      "visible": true
+    }
+  ],
+  "promptTitle": "Görseli keşfet.\nPromptu kendine uyarla.",
+  "promptDescription": "Videolardaki uzun promptlar, örnek görseller ve daha iyi sonuç almak için küçük notlar. Beğendiğin görseli aç, promptu kopyala ve dene.",
+  "seoTitle": "",
+  "seoDescription": "",
+  "googleVerification": "",
+  "bingVerification": "",
+  "adsHomeSlot": "",
+  "adsArchiveSlot": "",
+  "adsConsentReady": false,
+  "ui": {
+    "formTopicQuestion": "Soru",
+    "formTopicIdea": "İçerik önerisi",
+    "formTopicCollab": "İş birliği",
+    "formTopicOther": "Diğer",
+    "rssLabel": "RSS",
+    "privacyLabel": "Gizlilik",
+    "adminLabel": "Yönetim",
+    "allLabel": "Tümü",
+    "readTimeLabel": "dk okuma",
+    "demoLabel": "Örnek içerik",
+    "menuButton": "Menü",
+    "skipLink": "İçeriğe geç",
+    "collectionEmpty": "Yeni içerikler yakında burada.",
+    "toolOpen": "Aracı aç",
+    "shortcutOpen": "Kestirmeyi aç",
+    "gearOpen": "Bağlantıyı incele",
+    "projectOpen": "İçeriği gör",
+    "promptHomeLabel": "PROMPTLARI KEŞFET",
+    "allPrompts": "Tüm promptlar",
+    "articleSearch": "Merak ettiğin konuyu ara…",
+    "articleCount": "YAZI",
+    "articleBack": "Yazılara dön",
+    "articleBackAll": "Tüm yazılara dön →",
+    "articleUpdated": "Son güncelleme:",
+    "articleCoverNote": "Kapak: Konuyu anlatan temsili illüstrasyon.",
+    "articleDemoNote": "Örnek içerik · Bu yazı site önizlemesi için hazırlanmıştır.",
+    "articleToc": "Bu yazıda",
+    "articleSources": "Kaynaklar",
+    "articleAuthor": "Yazar hakkında →",
+    "articleRelated": "Bu konuda okumaya devam et",
+    "promptLabel": "KOPYALA, UYARLA, ÜRET",
+    "promptSearch": "Bir prompt ara…",
+    "promptCount": "PROMPT",
+    "promptOpen": "Promptu aç",
+    "promptEmpty": "Yeni promptlar yakında burada.",
+    "promptNoMatch": "Eşleşen prompt bulunamadı.",
+    "promptShowAll": "Tüm promptları göster →",
+    "promptBack": "← Tüm promptlar",
+    "promptCaption": "Örnek görsel. Sonuç, kullandığın araca ve ayarlara göre değişebilir.",
+    "promptTool": "Araç:",
+    "promptInstructionsTitle": "Nasıl kullanılır?",
+    "promptInstructions": "Promptu kopyala ve görsel üreten aracında aç.\nMetindeki konu, renk ve oranı kendi fikrine göre değiştir. Referans gerekiyorsa fotoğrafını ekle.\nSonucu incele; değiştirmek istediğin ayrıntıları bir sonraki mesajında tarif et.",
+    "promptNotesTitle": "Dikkat etmen gerekenler",
+    "promptVideo": "İlgili videoyu izle ↗",
+    "promptTextTitle": "Prompt",
+    "promptCopy": "Promptu kopyala",
+    "promptCopied": "Kopyalandı",
+    "promptCopySuccess": "Prompt kopyalandı.",
+    "promptCopyFallback": "Otomatik kopyalama engellendi. Metin seçildi; kopyala komutunu kullanabilirsin.",
+    "promptCopyHint": "Metni kopyalayıp kullandığın aracın mesaj alanına yapıştır.",
+    "promptShare": "Sayfa bağlantısını kopyala",
+    "promptShareSuccess": "Bağlantı kopyalandı.",
+    "promptShareFallback": "Adres çubuğundaki bağlantıyı kopyalayabilirsin.",
+    "toolsLabel": "KAYDET, DENE, KULLAN",
+    "toolsIntroTitle": "iPhone’da küçük işleri kolaylaştır",
+    "toolsIntroBody": "Kestirme bağlantıları iCloud üzerinden açılır. Eklerken eylemleri ve istediği izinleri incele; iOS sürümü ve yüklü uygulamalar çalışmasını etkileyebilir.",
+    "toolsGuide": "Kestirme ekleme rehberini oku →",
+    "gearLabel": "KAMERA ARKASINDA",
+    "aboutHello": "MERHABA, BEN",
+    "brandLabel": "MARKALAR İÇİN · İŞ BİRLİKLERİ",
+    "brandProject": "Projenizi anlatın ↗",
+    "brandKit": "Medya kitini inceleyin ↗",
+    "brandApproach": "ÇALIŞMA YAKLAŞIMIM",
+    "brandFormats": "İÇERİK FORMATLARI",
+    "brandProcess": "ÇALIŞMA SÜRECİ",
+    "brandFirstStep": "İLK ADIM SİZDEN",
+    "brandShare": "Projenizi paylaşın ↗",
+    "formName": "Adın",
+    "formEmail": "E-posta adresin",
+    "formSubject": "Konu",
+    "formChoose": "Bir konu seç",
+    "formMessage": "Mesajın",
+    "formNotice": "Adın, e-posta adresin ve mesajın, talebini yanıtlamak amacıyla site yönetimine iletilir ve saklanır.",
+    "formPrivacy": "Gizlilik bilgileri",
+    "formSuccess": "Mesajın kaydedildi. Teşekkür ederim!",
+    "formBusy": "Gönderiliyor…",
+    "privacyKicker": "ŞEFFAFLIK",
+    "privacyTitle": "Gizlilik",
+    "privacyDescription": "Gizlilik, iletişim formu verileri ve reklam hizmetleri hakkında bilgiler.",
+    "privacyContactTitle": "İletişim formu",
+    "privacyContactBody": "Form üzerinden gönderdiğin ad, e-posta, konu ve mesaj talebini değerlendirmek ve yanıtlamak için saklanır. Mesajları yalnızca yetkili site yöneticisi görüntüleyebilir. Kötüye kullanımı sınırlamak için bağlantı adresinin günlük bir özet değeri de kaydedilir. Verilerin hakkında bir talebin varsa aşağıdaki adrese yazabilirsin.",
+    "notFoundTitle": "Bu sayfa radarımızda yok.",
+    "notFoundBody": "Bağlantı değişmiş veya yazı yayından kaldırılmış olabilir.",
+    "heroIssue": "BAĞIMSIZ BİR PERSPEKTİF / 01",
+    "heroRead": "Yazıları keşfet",
+    "heroAbout": "Önce tanışalım",
+    "heroSignature": "Merak eder. Araştırır. Paylaşır.",
+    "heroArt": "YENİ FİKİRLERE AÇIK.",
+    "topics": "MERAKININ PEŞİNDEN GİT",
+    "featuredLabel": "",
+    "featuredBadge": "ÖNE ÇIKAN YAZI",
+    "latestLabel": "",
+    "latestTitle": "Yazılar",
+    "allArticles": "Tüm yazılar",
+    "emptyArticles": "İlk yazı yakında burada.",
+    "aboutLabel": "BU SATIRLARIN ARKASINDA",
+    "aboutGreeting": "Merhaba, ben",
+    "aboutSubtitle": "Teknolojiyi birlikte keşfedelim.",
+    "aboutButton": "Biraz daha tanışalım",
+    "socialLabel": "EKRANIN DİĞER TARAFINDA",
+    "socialTitle": "Burada bitmesin.",
+    "socialDescription": "Videolar, kısa notlar ve günlük keşifler.\nHangi platformdaysan, orada buluşalım.",
+    "youtubeDescription": "Biraz daha yakından",
+    "instagramDescription": "Günlük teknoloji dozu",
+    "tiktokDescription": "Kısa, net, meraklı",
+    "xDescription": "Sohbete katıl",
+    "socialEmpty": "Sosyal medya bağlantıları yakında burada.",
+    "contactInvitation": "Bir fikrin mi var?",
+    "footerSignature": "Teknoloji. İnsan. Merak.",
+    "archiveTitle": "Biraz merak.\nBiraz perspektif.",
+    "archiveDescription": "Teknoloji gündemi, işe yarayan rehberler ve üzerine düşünmeye değer fikirler.",
+    "archiveEmpty": "Bu konuda henüz bir yazı yok.",
+    "guideLabel": "ADIM ADIM TEKNOLOJİ",
+    "guideEmpty": "Yeni rehberler hazırlanıyor.",
+    "journeyLabel": "BU SİTE NEDEN VAR?",
+    "journeyTitle": "Videonun devamı burada.",
+    "topicsLabel": "NELER ANLATIYORUM?",
+    "topicsTitle": "Neler paylaşıyorum?",
+    "approachLabel": "YAKLAŞIMIM",
+    "approachTitle": "Anlaşılır, kaynaklı, işe yarar.",
+    "aboutContact": "Benimle iletişime geç ↗",
+    "contactLabel": "SORULAR, FİKİRLER, İŞ BİRLİKLERİ",
+    "directLabel": "DOĞRUDAN ULAŞ",
+    "directTitle": "Merhaba demek için.",
+    "directDescription": "Bir teknoloji sorusu, içerik önerisi veya iş birliği teklifi gönderebilirsin.",
+    "collabLink": "Markalar için iş birliği ↓",
+    "selectedWorks": "Seçili işler",
+    "formTitle": "Mesajını bırak.",
+    "formSubmit": "Mesajı gönder ↗",
+    "menuTitle": "Keşfet",
+    "menuDescription": "Teknoloji, deneyimler ve fikirler.",
+    "menuSocial": "Sosyal hesaplarda buluşalım ↗"
+  },
+  "navigation": [
+    {
+      "path": "/",
+      "label": "Ana sayfa",
+      "visible": true
+    },
+    {
+      "path": "/yazilar",
+      "label": "Yazılar",
+      "visible": true
+    },
+    {
+      "path": "/promptlar",
+      "label": "Promptlar",
+      "visible": true
+    },
+    {
+      "path": "/arac-kutusu",
+      "label": "Araç Kutusu",
+      "visible": true
+    },
+    {
+      "path": "/kullandiklarim",
+      "label": "Kullandıklarım",
+      "visible": true
+    },
+    {
+      "path": "/hakkimda",
+      "label": "Hakkımda",
+      "visible": true
+    },
+    {
+      "path": "/iletisim",
+      "label": "İletişim",
+      "visible": true
+    }
+  ],
+  "collabFormats": [
+    {
+      "title": "Kısa video & Reels",
+      "body": "Ürünün öne çıkan faydasını tek bir güçlü fikir etrafında anlatan, ilk anından itibaren merak uyandırmayı amaçlayan dikey videolar. Yeni ürün duyuruları ve kullanım senaryoları için birlikte bir kurgu oluşturabiliriz."
+    },
+    {
+      "title": "Ürün deneyimi",
+      "body": "Bir cihazı ya da aksesuarı günlük hayatın içine yerleştiren deneyim içerikleri. Özellikleri somut örneklerle açıklayarak, ürünün kime ve hangi ihtiyaca hitap ettiğini anlaşılır hale getirebiliriz."
+    },
+    {
+      "title": "Uygulama & araç rehberleri",
+      "body": "Uygulamanızın veya dijital ürününüzün değerini adım adım gösteren anlatımlar. Bir özelliği tanıtabilir, başlangıç rehberi hazırlayabilir veya gerçek bir sorunun nasıl çözüldüğünü gösterebiliriz."
+    },
+    {
+      "title": "Marka kanalları için içerik",
+      "body": "Markanızın kendi sosyal medya hesaplarında kullanabileceği video ve anlatım içerikleri. Formatı, teslim edilecek dosyaları ve organik ya da reklam amaçlı kullanım haklarını proje özelinde belirleyebiliriz."
+    }
+  ],
+  "collabSteps": [
+    {
+      "title": "Hedefi ve uyumu netleştiririz.",
+      "body": "Önce ürününüzü, kampanya hedefinizi ve ulaşmak istediğiniz kitleyi konuşuruz. İçeriğin izleyiciye sağlayacağı faydayı ve benim içerik alanlarımla uyumunu değerlendirir, ortak bir başlangıç noktası belirleriz."
+    },
+    {
+      "title": "Fikri somut bir plana dönüştürürüz.",
+      "body": "Ana mesajı, içerik fikrini, platformları ve teslimleri birlikte netleştiririz. Ücret, takvim, geri bildirim kapsamı ve kullanım hakları üzerinde üretim öncesinde anlaşırız; böylece iki taraf da ne bekleyeceğini bilir."
+    },
+    {
+      "title": "Deneyimler, üretir ve gözden geçiririz.",
+      "body": "Ürünü veya hizmeti tanıdıktan sonra anlatımı geliştirir, çekim ve kurguyu hazırlanan plana göre yürütürüm. Kararlaştırdığımız inceleme aşamasında ürün bilgilerinin doğruluğunu ve marka mesajını birlikte kontrol eder, geri bildirimleri belirlenen kapsamda ele alırız."
+    },
+    {
+      "title": "Yayınlar, teslim eder ve değerlendiririz.",
+      "body": "Onaylanan içerik, anlaşılan takvim ve kanallarda yayınlanır veya markanıza teslim edilir. Kendi kanallarımdaki yayınlar için kararlaştırılan kapsamda erişilebilen performans verilerini değerlendirir, sonraki içeriklere yön verecek çıkarımları konuşabiliriz."
+    }
+  ],
+  "collabFormatsTitle": "Fikrinize uygun bir anlatım.",
+  "collabProcessTitle": "İlk fikirden yayına, birlikte.",
+  "collabApproachTitle": "Markanızın mesajı.\nBenim anlatım dilim.",
+  "collabApproachBody": "İş birliğinin merkezine izleyiciye faydayı koyuyorum. Markanızın önceliklerini kendi anlatım dilimle birleştirirken, ürünle ilgili değerlendirmelerimi deneyimime dayandırırım. Sponsorlu içerikleri açıkça belirtir, güveni uzun vadeli bir ilişkinin temeli olarak görürüm.",
+  "collabCtaTitle": "Bir sonraki içeriği birlikte planlayalım.",
+  "collabCtaBody": "Markanızı ve ürününüzü, ulaşmak istediğiniz kitleyi, kampanya hedefinizi, düşündüğünüz yayın tarihini ve bütçe aralığınızı paylaşın. Bu bilgiler üzerinden uygun formatı, kapsamı ve çalışma takvimini birlikte netleştirelim.",
+  "contactTitle": "Bir mesajla başlayalım.",
+  "contactDescription": "Bir sorunun, içerik önerin veya birlikte hayata geçirmek istediğin bir fikrin varsa bana yaz.",
+  "aboutJourney": "Teknolojiye duyduğum merakı, öğrendiklerimi paylaşarak içerik üretimine taşıdım. Bugün sosyal medya ile bu siteyi birbirini tamamlayan iki alan olarak görüyorum: videolarda bir fikri tanıtıyor, burada ayrıntılarına yer açıyorum.\n\nBu alanı, yalnızca gündemi takip ettiğin değil; bir sorunu çözmek, yeni bir araç keşfetmek veya bir fikri denemek için geri dönebildiğin bir kaynak olarak geliştiriyorum.",
+  "aboutTopics": "Teknoloji gündemi ve yeniliklerin günlük hayata etkisi\nYapay zekâ araçları ve kullanıma hazır promptlar\nWindows, mobil cihazlar ve adım adım rehberler\nUygulamalar, iPhone kestirmeleri ve pratik çözümler\nİçerik üretiminde kullandığım ekipmanlar",
+  "aboutApproach": "Sade anlatıma, somut örneklere ve bilginin kaynağına önem veriyorum. Teknik ayrıntıları, ne işe yaradıklarını ve hangi ihtiyaca karşılık geldiklerini açıklayarak ele alıyorum.\n\nKendi deneyimimi paylaştığım içeriklerle kaynaklara dayanan bilgileri ayırt etmek, bir aracın güçlü yanları kadar sınırlarını da anlatmak benim için önemli. Burada kurmak istediğim ilişki, merak ve güven üzerine.",
+  "guideTitle": "Birlikte çözelim.",
+  "guideDescription": "Telefon ipuçları, uygulama anlatımları ve adım adım teknoloji rehberleri.",
+  "toolsTitle": "Küçük araçlar.\nBüyük kolaylıklar.",
+  "toolsDescription": "Paylaştığım kestirmeler, faydalı uygulamalar ve dijital yardımcılar tek bir yerde.",
+  "gearTitle": "Masamda neler var?",
+  "gearDescription": "İçerik üretirken ve günlük hayatımda kullandığım ekipmanlar.",
+  "collabTitle": "Birlikte iyi bir\nhikâye anlatalım.",
+  "collabBody": "Teknolojiyi anlaşılır ve merak uyandıran içeriklerle anlatıyorum. Ürününüzü, hedef kitlenizi ve fikrinizi paylaşın; uygun içerik formatını birlikte belirleyelim.",
+  "collabServices": "Ürün tanıtımı ve deneyim içerikleri\nInstagram Reels ve kısa videolar\nUygulama ve dijital araç anlatımları\nMarkalar için içerik üretimi",
+  "mediaKitUrl": "",
+  "tools": [
+    {
+      "id": "shortcut-call",
+      "title": "Sahte ARAMA",
+      "category": "iPhone kestirmesi",
+      "description": "Sahte arama senaryosu için paylaştığım kestirme bağlantısı.",
+      "note": "Kullanmadan önce akışın eylemlerini ve istediği izinleri incele.",
+      "url": "https://www.icloud.com/shortcuts/ccd94e344b55429da9e9ea56d88771f3",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "shortcut-park",
+      "title": "Arabamı PARK ETTİM",
+      "category": "iPhone kestirmesi",
+      "description": "Park ettiğin yerle ilgili akışa buradan ulaşabilirsin.",
+      "note": "Konum kullanan adımlarda izinleri kontrol et.",
+      "url": "https://www.icloud.com/shortcuts/011aaf76a5ea41009af428daba1b6a72",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "shortcut-lost",
+      "title": "Telefonumu KAYBETTİM",
+      "category": "iPhone kestirmesi",
+      "description": "Telefonunu bulma senaryosu için paylaştığım kestirme.",
+      "note": "Kurulum adımlarını önceden incele; Apple Bul hizmetinin yerine geçtiğini varsayma.",
+      "url": "https://www.icloud.com/shortcuts/b8f80e7e989647fc92927d0b4150955e",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "shortcut-charge-on",
+      "title": "Hızlı Şarj Açık",
+      "category": "iPhone kestirmesi",
+      "description": "Şarj sırasında kullandığın ayarları düzenlemek için paylaşılan akış.",
+      "note": "Kestirme donanımın şarj gücünü artırmaz. Değiştirdiği ayarları kontrol et.",
+      "url": "https://www.icloud.com/shortcuts/fe9d098948124b5093d7dc07843fc547",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "shortcut-charge-off",
+      "title": "Hızlı Şarj Kapalı",
+      "category": "iPhone kestirmesi",
+      "description": "Hızlı Şarj Açık akışıyla birlikte paylaştığım ikinci kestirme.",
+      "note": "Hangi ayarları geri aldığını kestirme içinden inceleyebilirsin.",
+      "url": "https://www.icloud.com/shortcuts/352976549c044ded99da5d5e0f984a59",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "shortcut-bg",
+      "title": "Arka Plan SİL",
+      "category": "iPhone kestirmesi",
+      "description": "Görsellerle çalışırken kullanabileceğin arka plan silme kestirmesi.",
+      "note": "İlk denemeyi önemli bir fotoğrafın tek kopyası üzerinde yapma.",
+      "url": "https://www.icloud.com/shortcuts/168ccd3423c14cdd8f53edee7bc354e5",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "shortcut-video",
+      "title": "Video INDIR",
+      "category": "iPhone kestirmesi",
+      "description": "Video kaydetme akışı için paylaştığım kestirme bağlantısı.",
+      "note": "Yalnızca indirme hakkın olan içeriklerde kullan. Site ve iOS değişiklikleri akışın çalışmasını etkileyebilir.",
+      "url": "https://www.icloud.com/shortcuts/3baf63de4fff40d8be1bfbad084ce7e0",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    }
+  ],
+  "gear": [
+    {
+      "id": "camera",
+      "title": "Fujifilm X-S20",
+      "category": "Kamera",
+      "description": "İçerik üretim ekipmanım.",
+      "note": "",
+      "url": "",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    },
+    {
+      "id": "mic",
+      "title": "Fifine AmpliGame A6T",
+      "category": "Mikrofon",
+      "description": "Ses kayıt ekipmanım.",
+      "note": "",
+      "url": "",
+      "image": "",
+      "imageAlt": "",
+      "buttonLabel": "",
+      "visible": true
+    }
+  ],
+  "projects": [],
+  "name": "Hasan Kökçe",
+  "tagline": "TEKNOLOJİ İÇERİK ÜRETİCİSİ",
+  "heroTitle": "Teknolojiye\nbir de buradan bak.",
+  "heroDescription": "Teknoloji gündemi, yapay zekâ araçları ve günlük hayatı kolaylaştıran fikirler. Anlaşılır yazılar, pratik rehberler ve videoların devamı burada.",
+  "aboutTitle": "Teknolojiyi anlamak.\nHayata dahil etmek.",
+  "aboutBody": "Ben Hasan Kökçe. Teknoloji, yapay zekâ ve dijital yaşam üzerine içerikler üretiyorum. Amacım, yenilikleri anlaşılır hale getirmek ve günlük hayatında işine yarayacak fikirleri seninle paylaşmak.\n\nBir haberin yalnızca ne söylediğiyle değil, bizim için ne ifade ettiğiyle ilgileniyorum. Bir uygulama hangi işi kolaylaştırıyor? Yeni bir özellik gerçekten gerekli mi? Bir yapay zekâ aracından nasıl daha iyi sonuç alabiliriz? İçeriklerimin çıkış noktası bu sorular.\n\nSosyal medyada iamhasankokce adıyla paylaştığım içeriklerin devamını burada bulabilirsin. Kısa videolara sığmayan ayrıntıları yazılarda açıyor; rehberleri, promptları ve kestirmeleri ihtiyaç duyduğunda yeniden ulaşabileceğin bir yerde topluyorum.",
+  "portrait": "/images/hasan-portrait-800.webp",
+  "heroImage": "/images/hero.webp",
+  "email": "info@hasankokce.com",
+  "youtube": "https://www.youtube.com/@iamhasankokce",
+  "instagram": "https://instagram.com/iamhasankokce",
+  "tiktok": "https://tiktok.com/@iamhasankokce",
+  "x": "https://x.com/iamhasankokce",
+  "accent": "#b9f66a",
+  "categories": "Yapay zekâ,Teknoloji,Rehberler,Dijital yaşam",
+  "adsEnabled": false,
+  "adsClient": "",
+  "adsSlot": "",
+  "privacy": "Bu site temel işlevleri için gerekli teknolojileri kullanır. İletişim bağlantıları ve sosyal medya platformları kendi gizlilik koşullarına tabidir.\n\nReklamlar etkinleştirildiğinde kullanılan hizmetler ve izin tercihleri bu sayfada güncellenir.\n\n## E-posta bülteni\nAbone olmak istediğinde e-posta adresin, abonelik durumu, talep ve onay zamanı ile kabul ettiğin abonelik metni sitemizin sunucusunda saklanır. E-posta adresin doğrulanmadan bülten gönderilmez. Doğrulama ve bülten e-postaları Hostinger e-posta hizmeti üzerinden iletilir. Her bültendeki ayrılma bağlantısıyla aboneliğini durdurabilirsin. Tekrar gönderimi önlemek için abonelikten ayrılma ve gönderim durum kayıtları tutulur. Verilerinle ilgili bilgi veya silme talebi için info@hasankokce.com adresine yazabilirsin.\n\n## Site içi içerik istatistikleri\nYazı ve prompt görüntülenmeleri, prompt kopyalama ve ürün/araç kartı gösterimleri ile bağlantı tıklamaları kendi sunucumuzda toplu istatistiklere dönüştürülür. Çerez veya kalıcı ziyaretçi kimliği kullanılmaz; tam IP adresi, tam yönlendiren adres veya arama terimleri istatistik veritabanına kaydedilmez. Genel trafik kaynağı ve cihaz türü tutulur. Aynı sayfa yüklemesinden gelen tekrarları önlemek için rastgele bir sayfa anahtarı en fazla 72 saatlik pencere için tutulur; süresi geçen kayıtlar sonraki ölçüm isteğinde temizlenir. Günlük toplu sayımlar saklanır. Do Not Track ve Global Privacy Control tercihleri dikkate alınır. Yönetici oturumları ölçülmez. Hosting sunucusunun erişim günlükleri bu ölçüm sisteminden ayrıdır.",
+  "footer": "Merak etmeye devam."
+}

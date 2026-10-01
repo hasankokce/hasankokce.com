@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1789462470103,
+      "tag": "0000_bright_chamber",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789479064361,
+      "tag": "0001_equal_susan_delgado",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789538169468,
+      "tag": "0002_secret_mother_askani",
+      "breakpoints": true
+    }
+  ]
+}

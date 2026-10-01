@@ -1,0 +1,1 @@
+export const metadata={robots:{index:false,follow:false}};export default function Logout(){return <main className="status-box"><h1>Oturumu kapat</h1><form action="/api/auth/logout" method="post"><button className="pill dark">Oturumu kapat</button></form></main>}

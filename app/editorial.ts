@@ -1,0 +1,4 @@
+import {z} from 'zod';
+import {postSchema} from './validation';
+export const draftSchema=postSchema.extend({slug:z.string().max(150).regex(/^[a-z0-9-]*$/),title:z.string().max(180),excerpt:z.string().max(500),body:z.string().max(100000),category:z.string().max(60),status:z.enum(['published','draft','archived','scheduled'])});
+export function publishIssues(p:{title:string;slug:string;excerpt:string;body:string;category:string;image:string;imageAlt?:string;sources?:string}){return [!p.title.trim()&&'Yazı başlığı eksik.',!p.slug&&'Bağlantı adı eksik.',!p.excerpt.trim()&&'Kısa açıklama eksik.',p.body.trim().length<10&&'Yazı içeriği eksik.',!p.category.trim()&&'Kategori eksik.',!p.image&&'Kapak görseli eksik.',!!p.image&&!p.imageAlt?.trim()&&'Kapak alternatif metni eksik.',!p.sources?.trim()&&'Kaynak eklenmemiş. Kendi deneyiminse bunu yazıda belirt.'].filter(Boolean) as string[]}

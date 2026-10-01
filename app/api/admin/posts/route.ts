@@ -1,0 +1,6 @@
+import {guard,isAdmin} from '../../../auth';
+import {getPosts,savePost} from '../../../store';
+import {postSchema} from '../../../validation';
+export const dynamic='force-dynamic';
+export async function GET(){if(!await isAdmin())return Response.json({error:'Yetkisiz erişim'},{status:403});try{return Response.json(await getPosts(true),{headers:{'Cache-Control':'no-store'}})}catch(e){console.error('posts read',e);return Response.json({error:'Yazılar yüklenemedi. Yeniden deneyin.'},{status:503})}}
+export async function POST(request:Request){const denied=await guard(request);if(denied)return denied;try{if(Number(request.headers.get('content-length')||0)>150000)return Response.json({error:'Yazı çok büyük.'},{status:413});const parsed=postSchema.safeParse(await request.json());if(!parsed.success)return Response.json({error:parsed.error.issues.map(e=>e.message).join(' ')},{status:400});await savePost(parsed.data);return Response.json({ok:true,post:parsed.data})}catch(e){console.error('post save',e);const duplicate=String(e).includes('UNIQUE');return Response.json({error:duplicate?'Bu bağlantı adı başka bir yazıda kullanılıyor.':'Yazı kaydedilemedi. İçeriğinizi koruduk; yeniden deneyin.'},{status:duplicate?409:503})}}

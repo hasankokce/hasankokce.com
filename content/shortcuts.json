@@ -1,0 +1,72 @@
+[
+  {
+    "id": "shortcut-call",
+    "title": "Sahte ARAMA",
+    "category": "iPhone kestirmesi",
+    "description": "Sahte arama senaryosu için paylaştığım kestirme bağlantısı.",
+    "note": "Kullanmadan önce akışın eylemlerini ve istediği izinleri incele.",
+    "url": "https://www.icloud.com/shortcuts/ccd94e344b55429da9e9ea56d88771f3",
+    "image": "",
+    "visible": true
+  },
+  {
+    "id": "shortcut-park",
+    "title": "Arabamı PARK ETTİM",
+    "category": "iPhone kestirmesi",
+    "description": "Park ettiğin yerle ilgili akışa buradan ulaşabilirsin.",
+    "note": "Konum kullanan adımlarda izinleri kontrol et.",
+    "url": "https://www.icloud.com/shortcuts/011aaf76a5ea41009af428daba1b6a72",
+    "image": "",
+    "visible": true
+  },
+  {
+    "id": "shortcut-lost",
+    "title": "Telefonumu KAYBETTİM",
+    "category": "iPhone kestirmesi",
+    "description": "Telefonunu bulma senaryosu için paylaştığım kestirme.",
+    "note": "Kurulum adımlarını önceden incele; Apple Bul hizmetinin yerine geçtiğini varsayma.",
+    "url": "https://www.icloud.com/shortcuts/b8f80e7e989647fc92927d0b4150955e",
+    "image": "",
+    "visible": true
+  },
+  {
+    "id": "shortcut-charge-on",
+    "title": "Hızlı Şarj Açık",
+    "category": "iPhone kestirmesi",
+    "description": "Şarj sırasında kullandığın ayarları düzenlemek için paylaşılan akış.",
+    "note": "Kestirme donanımın şarj gücünü artırmaz. Değiştirdiği ayarları kontrol et.",
+    "url": "https://www.icloud.com/shortcuts/fe9d098948124b5093d7dc07843fc547",
+    "image": "",
+    "visible": true
+  },
+  {
+    "id": "shortcut-charge-off",
+    "title": "Hızlı Şarj Kapalı",
+    "category": "iPhone kestirmesi",
+    "description": "Hızlı Şarj Açık akışıyla birlikte paylaştığım ikinci kestirme.",
+    "note": "Hangi ayarları geri aldığını kestirme içinden inceleyebilirsin.",
+    "url": "https://www.icloud.com/shortcuts/352976549c044ded99da5d5e0f984a59",
+    "image": "",
+    "visible": true
+  },
+  {
+    "id": "shortcut-bg",
+    "title": "Arka Plan SİL",
+    "category": "iPhone kestirmesi",
+    "description": "Görsellerle çalışırken kullanabileceğin arka plan silme kestirmesi.",
+    "note": "İlk denemeyi önemli bir fotoğrafın tek kopyası üzerinde yapma.",
+    "url": "https://www.icloud.com/shortcuts/168ccd3423c14cdd8f53edee7bc354e5",
+    "image": "",
+    "visible": true
+  },
+  {
+    "id": "shortcut-video",
+    "title": "Video INDIR",
+    "category": "iPhone kestirmesi",
+    "description": "Video kaydetme akışı için paylaştığım kestirme bağlantısı.",
+    "note": "Yalnızca indirme hakkın olan içeriklerde kullan. Site ve iOS değişiklikleri akışın çalışmasını etkileyebilir.",
+    "url": "https://www.icloud.com/shortcuts/3baf63de4fff40d8be1bfbad084ce7e0",
+    "image": "",
+    "visible": true
+  }
+]

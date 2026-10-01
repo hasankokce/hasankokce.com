@@ -1,0 +1,8 @@
+import {sqliteTable,text,index} from 'drizzle-orm/sqlite-core';
+export const posts=sqliteTable('posts',{id:text('id').primaryKey(),slug:text('slug').notNull().unique(),status:text('status').notNull(),date:text('date').notNull(),data:text('data').notNull()},t=>[index('posts_status_date').on(t.status,t.date)]);
+export const settings=sqliteTable('settings',{id:text('id').primaryKey(),data:text('data').notNull()});
+export const messages=sqliteTable('messages',{id:text('id').primaryKey(),name:text('name').notNull(),email:text('email').notNull(),subject:text('subject').notNull(),message:text('message').notNull(),createdAt:text('created_at').notNull(),status:text('status').notNull().default('new'),senderHash:text('sender_hash').notNull()},t=>[index('messages_sender_created').on(t.senderHash,t.createdAt),index('messages_created').on(t.createdAt)]);
+export const editorialDrafts=sqliteTable('editorial_drafts',{id:text('id').primaryKey(),data:text('data').notNull(),version:text('version').notNull(),token:text('token').notNull(),updatedAt:text('updated_at').notNull()});
+export const editorialRevisions=sqliteTable('editorial_revisions',{id:text('id').primaryKey(),postId:text('post_id').notNull(),data:text('data').notNull(),createdAt:text('created_at').notNull(),label:text('label').notNull()},t=>[index('revisions_post_created').on(t.postId,t.createdAt)]);
+export const postSchedules=sqliteTable('post_schedules',{id:text('id').primaryKey(),data:text('data').notNull(),publishAt:text('publish_at').notNull()},t=>[index('schedules_publish_at').on(t.publishAt)]);
+export const mediaLibrary=sqliteTable('media_library',{key:text('key').primaryKey(),name:text('name').notNull(),alt:text('alt').notNull().default(''),createdAt:text('created_at').notNull()});

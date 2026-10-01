@@ -1,0 +1,3 @@
+import {requireChatGPTUser} from '../chatgpt-auth';import {isAdmin} from '../auth';import {getPosts,getSettings} from '../store';import Admin from './panel';
+export const dynamic='force-dynamic';export const metadata={title:'Yönetim',robots:{index:false,follow:false}};
+export default async function AdminPage(){await requireChatGPTUser('/admin');if(!await isAdmin())return <main className="status-box"><h1>Bu hesapta yönetici erişimi yok.</h1><p>Yönetici hesabınla giriş yapmalısın.</p><a className="pill dark" href="/signout-with-chatgpt?return_to=%2Fadmin">Hesap değiştir</a></main>;const [posts,settings]=await Promise.all([getPosts(true),getSettings(true)]);return <Admin initialPosts={posts} initialSettings={settings}/>}

@@ -1,0 +1,6 @@
+import {isAdmin} from '../../../auth';
+import {report} from '../../../../runtime/analytics';
+import {istanbulDay,kindLabels} from '../../../analytics-types';
+export const dynamic='force-dynamic';
+function cell(v:string|number){let s=String(v);if(/^[=+@\-\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
+export async function GET(r:Request){if(!await isAdmin())return new Response(null,{status:403});const u=new URL(r.url);try{const to=u.searchParams.get('to')||istanbulDay(),from=u.searchParams.get('from')||istanbulDay(new Date(Date.now()-29*86400000));const data=await report(from,to,u.searchParams.get('kind')||'all');if(u.searchParams.get('format')==='csv'){const rows=[['Tür','Kalıcı kimlik','Başlık','Durum','Görüntülenme','Önceki dönem','30 sn etkileşim','%75 okuma','Kopyalama','Tıklama'],...data.rows.map(r=>[kindLabels[r.kind],r.id,r.title,r.status,r.views,r.previousViews,r.engaged,r.reads,r.copies,r.clicks])];return new Response('\uFEFF'+rows.map(r=>r.map(cell).join(',')).join('\r\n'),{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':`attachment; filename="istatistik-${from}-${to}.csv"`,'Cache-Control':'no-store'}})}return Response.json(data,{headers:{'Cache-Control':'no-store'}})}catch(e){return Response.json({error:e instanceof Error?e.message:'Rapor hazırlanamadı.'},{status:400})}}

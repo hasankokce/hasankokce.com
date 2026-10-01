@@ -1,0 +1,13 @@
+'use client';
+import {useEffect,useState} from 'react';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+type Item={key:string;url?:string;name:string;alt:string};
+export default function MediaLibrary({onSelect}:{onSelect?:(url:string,alt:string)=>void}){
+ const [items,setItems]=useState<Item[]>([]),[query,setQuery]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ async function load(){try{const r=await fetch('/api/admin/media');if(!r.ok)throw Error('Görsel arşivi yüklenemedi.');setItems(await r.json())}catch(e){setError(String(e))}}
+ useEffect(()=>{void load()},[]);
+ async function upload(file?:File){if(!file)return;setBusy(true);setError('');try{const f=new FormData();f.append('file',file);const r=await fetch('/api/admin/media',{method:'POST',body:f}),d=await r.json() as {error:string};if(!r.ok)throw Error(d.error);await load()}catch(e){setError(String(e))}finally{setBusy(false)}}
+ async function save(item:Item){setBusy(true);try{const r=await fetch('/api/admin/media',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});if(!r.ok)throw Error('Alternatif metin kaydedilemedi.');setError('Alternatif metin kaydedildi.')}catch(e){setError(String(e))}finally{setBusy(false)}}
+ return <section className="media-library"><div className="workflow-row"><Input aria-label="Görsellerde ara" placeholder="Dosya adına göre ara…" value={query} onChange={e=>setQuery(e.target.value)}/><label className="upload-button">{busy?'Yükleniyor…':'Görsel yükle'}<input aria-label="Arşive görsel yükle" type="file" accept="image/png,image/jpeg,image/webp" disabled={busy} onChange={e=>void upload(e.target.files?.[0])}/></label></div><p className="admin-help">PNG, JPEG ve WebP · En fazla 5 MB. Alternatif metin, görseli göremeyen okuyuculara içeriğini anlatır.</p>{error&&<p role="status">{error}</p>}<div className="media-library-grid">{items.filter(i=>i.name.toLocaleLowerCase('tr').includes(query.toLocaleLowerCase('tr'))).map(item=><article key={item.key}><img src={item.url||'/api/media/'+item.key} alt={item.alt||item.name} loading="lazy"/><strong>{item.name}</strong><Input aria-label={'Alternatif metin: '+item.name} value={item.alt} onChange={e=>setItems(all=>all.map(x=>x.key===item.key?{...x,alt:e.target.value}:x))}/><div className="workflow-row"><Button size="sm" variant="outline" disabled={busy} onClick={()=>void save(item)}>Metni kaydet</Button>{onSelect&&<Button size="sm" onClick={()=>onSelect(item.url||'/api/media/'+item.key,item.alt)}>Seç</Button>}</div></article>)}</div>{!items.length&&<p className="empty">Henüz yüklenmiş görsel yok.</p>}</section>
+}
