@@ -163,3 +163,504 @@ input[type=checkbox]{accent-color:var(--brand-ink)}
 
 /* Lightweight trust, sharing and consent controls. */
 .cookie-settings{font:inherit;background:transparent;border:0;text-decoration:underline;cursor:pointer;text-align:left;padding:8px 0;color:inherit}.cookie-panel{position:fixed;z-index:100;bottom:16px;left:16px;right:16px;margin:auto;max-width:760px;max-height:80dvh;overflow:auto;padding:24px;background:var(--background,#fff);color:var(--foreground,#20221f);border:1px solid var(--border,#ccc);border-radius:16px;box-shadow:0 8px 36px #0002}.cookie-panel h2{font-size:22px;margin:0 0 10px}.cookie-panel p{font-size:14px;line-height:1.6}.cookie-panel a{text-decoration:underline}.cookie-options,.cookie-actions,.share-box>div{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}.cookie-options label{display:flex;align-items:center;gap:8px;min-height:44px}.cookie-options input{width:20px;height:20px}.cookie-actions button,.share-box button,.share-box a{min-height:44px;border:1px solid currentColor;border-radius:8px;padding:10px 14px;background:transparent;color:inherit;cursor:pointer;font:inherit}.cookie-actions button{flex:1;min-width:150px;font-size:14px}.faq-list details{border-bottom:1px solid var(--border,#ddd);padding:22px 0}.faq-list summary{font-weight:600;cursor:pointer;min-height:44px}.faq-list p{line-height:1.8;margin-top:12px}.share-box{margin:32px 0;padding:22px;background:var(--surface-soft);border-radius:12px}.share-box p{font-size:14px;min-height:20px}.public-site :focus-visible{outline:3px solid var(--foreground);outline-offset:4px}.reading,.prompt-detail-content{overflow-wrap:anywhere}.cookie-panel button:hover{background:var(--surface-soft)}@media(max-width:500px){.cookie-panel{padding:18px;bottom:8px;left:8px;right:8px}.cookie-actions{gap:8px}.cookie-actions button{min-width:100%;}.share-box>div>*{flex:1;text-align:center}}
+
+/* ==========================================================================
+   Modern Blog & Zengin Metin Tipografi Sistemi (.article-content / .prose)
+   ========================================================================== */
+
+/* Okuma Alanı Ana Başlık (H1) */
+.reading h1 {
+  font-size: clamp(32px, 4.2vw, 44px) !important;
+  font-weight: 700 !important;
+  line-height: 1.18 !important;
+  letter-spacing: -1.2px !important;
+  margin: 20px 0 18px !important;
+  color: var(--foreground) !important;
+}
+
+.reading .lede {
+  font-size: clamp(18px, 2.2vw, 21px) !important;
+  line-height: 1.6 !important;
+  color: var(--text-secondary) !important;
+  margin: 0 0 28px !important;
+  font-weight: 400 !important;
+}
+
+/* Makale İçerik Container */
+.article-content,
+.prose {
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+  color: #242922 !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+/* Bölüm Başlıkları (H2) */
+.article-content h2,
+.prose h2 {
+  font-size: clamp(26px, 3.2vw, 32px) !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.6px !important;
+  margin-top: 54px !important;
+  margin-bottom: 18px !important;
+  color: var(--foreground) !important;
+  scroll-margin-top: 115px !important;
+}
+
+.article-content h2:first-child,
+.prose h2:first-child {
+  margin-top: 24px !important;
+}
+
+/* Alt Başlıklar (H3) */
+.article-content h3,
+.prose h3 {
+  font-size: clamp(21px, 2.4vw, 24px) !important;
+  font-weight: 650 !important;
+  line-height: 1.32 !important;
+  letter-spacing: -0.4px !important;
+  margin-top: 36px !important;
+  margin-bottom: 14px !important;
+  color: var(--foreground) !important;
+  scroll-margin-top: 115px !important;
+}
+
+/* Paragraflar */
+.article-content p,
+.prose p {
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+  margin-bottom: 22px !important;
+  color: #2a3128 !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Vurgulu & Kalın Metin */
+.article-content strong,
+.article-content b,
+.prose strong,
+.prose b {
+  font-weight: 700 !important;
+  color: var(--foreground) !important;
+}
+
+.article-content em,
+.article-content i,
+.prose em,
+.prose i {
+  font-style: italic !important;
+}
+
+/* Listeler (ul & ol) */
+.article-content ul,
+.prose ul {
+  list-style-type: disc !important;
+  padding-left: 28px !important;
+  margin: 18px 0 24px !important;
+}
+
+.article-content ol,
+.prose ol {
+  list-style-type: decimal !important;
+  padding-left: 28px !important;
+  margin: 18px 0 24px !important;
+}
+
+.article-content li,
+.prose li {
+  margin-bottom: 10px !important;
+  line-height: 1.7 !important;
+  padding-left: 4px !important;
+  color: #2a3128 !important;
+}
+
+.article-content li > ul,
+.article-content li > ol,
+.prose li > ul,
+.prose li > ol {
+  margin: 8px 0 12px !important;
+}
+
+/* Tablolar */
+.article-table-wrap {
+  width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  margin: 36px 0 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+.article-content table,
+.prose table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  text-align: left !important;
+  font-size: 15.5px !important;
+  min-width: 480px !important;
+}
+
+.article-content thead,
+.prose thead {
+  background: var(--surface-soft) !important;
+  border-bottom: 2px solid var(--border) !important;
+}
+
+.article-content th,
+.prose th {
+  padding: 14px 18px !important;
+  font-weight: 700 !important;
+  color: var(--foreground) !important;
+  font-size: 14.5px !important;
+  letter-spacing: -0.2px !important;
+  border-bottom: 1px solid var(--border) !important;
+  white-space: nowrap !important;
+}
+
+.article-content td,
+.prose td {
+  padding: 14px 18px !important;
+  border-bottom: 1px solid #edf0e8 !important;
+  line-height: 1.6 !important;
+  color: #262c24 !important;
+}
+
+.article-content tr:last-child td,
+.prose tr:last-child td {
+  border-bottom: none !important;
+}
+
+.article-content tbody tr:hover,
+.prose tbody tr:hover {
+  background: #fafbf8 !important;
+}
+
+/* Bağlantılar (Links) */
+.article-content a,
+.prose a {
+  color: #28541c !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  font-weight: 500 !important;
+  transition: color .15s, background-color .15s !important;
+}
+
+.article-content a:hover,
+.prose a:hover {
+  color: #16360c !important;
+  background: var(--brand-soft) !important;
+  border-radius: 2px !important;
+}
+
+/* Blockquote */
+.article-content blockquote,
+.prose blockquote {
+  margin: 32px 0 !important;
+  padding: 18px 24px !important;
+  border-left: 4px solid var(--brand-ink) !important;
+  background: var(--brand-soft) !important;
+  border-radius: 0 8px 8px 0 !important;
+  font-style: italic !important;
+  color: #293623 !important;
+}
+
+.article-content blockquote p,
+.prose blockquote p {
+  margin-bottom: 0 !important;
+  font-size: 17.5px !important;
+  line-height: 1.7 !important;
+  color: #293623 !important;
+}
+
+/* Yatay Çizgi */
+.article-content hr,
+.prose hr {
+  border: 0 !important;
+  border-top: 1px solid var(--border) !important;
+  margin: 44px 0 !important;
+}
+
+/* Kod */
+.article-content code,
+.prose code {
+  font-family: monospace !important;
+  font-size: 0.9em !important;
+  background: #eef2e7 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  color: #233818 !important;
+}
+
+.article-content pre,
+.prose pre {
+  background: #202621 !important;
+  color: #f1f4ed !important;
+  padding: 18px 22px !important;
+  border-radius: 8px !important;
+  overflow-x: auto !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 28px 0 !important;
+}
+
+.article-content pre code,
+.prose pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+/* ==========================================================================
+   İçindekiler Tablosu (Table of Contents)
+   ========================================================================== */
+.article-toc {
+  background: #f4f6f0 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  padding: 24px 28px !important;
+  margin: 36px 0 44px !important;
+}
+
+.article-toc .toc-title {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  margin: 0 0 14px !important;
+  color: var(--muted-foreground) !important;
+}
+
+.article-toc .toc-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.article-toc .toc-main-item a {
+  color: #242c20 !important;
+  font-weight: 550 !important;
+  font-size: 15.5px !important;
+  line-height: 1.5 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.article-toc .toc-sub-item {
+  padding-left: 20px !important;
+}
+
+.article-toc .toc-sub-item a {
+  color: var(--text-secondary) !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+  text-decoration: none !important;
+}
+
+.article-toc a:hover {
+  color: var(--brand-ink) !important;
+  text-decoration: underline !important;
+}
+
+/* ==========================================================================
+   Zengin Metin Editörü Stilleri (.rich-editor-*)
+   ========================================================================== */
+.rich-editor-container {
+  border: 1px solid #cad4c4;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.rich-editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: #f7f9f4;
+  border-bottom: 1px solid #dce4d5;
+  flex-wrap: wrap;
+  user-select: none;
+}
+
+.rich-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.rich-toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: #d8e0d2;
+  margin: 0 6px;
+}
+
+.rich-toolbar-spacer {
+  flex: 1;
+}
+
+.rich-btn {
+  height: 34px;
+  min-width: 34px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #434d40;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all .15s ease;
+}
+
+.rich-btn:hover {
+  background: #e6edd9;
+  color: #1f2d18;
+}
+
+.rich-btn.active {
+  background: var(--brand);
+  color: #1a2814;
+  font-weight: 650;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.rich-btn-label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.table-quick-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding-left: 6px;
+  border-left: 1px solid #d8e0d2;
+}
+
+.table-quick-actions button {
+  height: 28px;
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+.rich-editor-content {
+  min-height: 420px;
+  padding: 24px 28px;
+  outline: none;
+  cursor: text;
+  background: #fff;
+}
+
+.rich-editor-content:empty::before {
+  content: attr(data-placeholder);
+  color: #8c9787;
+  pointer-events: none;
+  display: block;
+}
+
+.rich-editor-content:focus {
+  background: #fdfefc;
+}
+
+.rich-editor-source-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.rich-editor-source {
+  width: 100%;
+  padding: 20px 24px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14.5px;
+  line-height: 1.65;
+  border: 0;
+  outline: none;
+  background: #1f251f;
+  color: #e5ede0;
+  resize: vertical;
+  min-height: 420px;
+}
+
+.rich-editor-hint {
+  padding: 10px 16px;
+  background: #f4f7ef;
+  border-top: 1px solid #dce4d5;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+/* Mobil Tipografi Uyarlamaları */
+@media (max-width: 760px) {
+  .reading h1 {
+    font-size: 32px !important;
+    letter-spacing: -1px !important;
+    margin: 16px 0 !important;
+  }
+  .reading .lede {
+    font-size: 17.5px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 22px !important;
+  }
+  .article-content,
+  .prose {
+    font-size: 17px !important;
+    line-height: 1.7 !important;
+  }
+  .article-content h2,
+  .prose h2 {
+    font-size: 25px !important;
+    margin-top: 40px !important;
+    margin-bottom: 14px !important;
+    scroll-margin-top: 94px !important;
+  }
+  .article-content h3,
+  .prose h3 {
+    font-size: 21px !important;
+    margin-top: 28px !important;
+    margin-bottom: 10px !important;
+    scroll-margin-top: 94px !important;
+  }
+  .article-content p,
+  .prose p {
+    font-size: 17px !important;
+    margin-bottom: 18px !important;
+  }
+  .article-table-wrap {
+    margin: 24px 0 !important;
+  }
+  .article-content th,
+  .prose th,
+  .article-content td,
+  .prose td {
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+  }
+  .rich-editor-toolbar {
+    padding: 6px 8px !important;
+  }
+  .rich-btn {
+    padding: 4px 6px !important;
+    min-width: 30px !important;
+    height: 30px !important;
+  }
+  .rich-editor-content {
+    padding: 16px !important;
+    min-height: 320px !important;
+  }
+}

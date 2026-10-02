@@ -1,4 +1,80 @@
-export function proseHeadings(body:string){return body.split(/\n\n+/).flatMap((block,i)=>block.startsWith('## ')?[{id:'bolum-'+i,title:block.split('\n')[0].slice(3).replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/\*\*/g,'')}]:[])}
-export function TableOfContents({body,title="Bu yazıda"}:{body:string;title?:string}){const headings=proseHeadings(body);if(headings.length<2)return null;return <nav className="article-toc" aria-label="İçindekiler"><h2>{title}</h2><ol>{headings.map(h=><li key={h.id}><a href={'#'+h.id}>{h.title}</a></li>)}</ol></nav>}
-function Inline({text}:{text:string}){const parts=text.split(/(\[[^\]]+\]\([^\s)]+\)|\*\*[^*]+\*\*)/g);return <>{parts.map((part,i)=>{const link=part.match(/^\[([^\]]+)\]\(([^\s)]+)\)$/);if(link){const url=link[2],internal=url.startsWith('/')&&!url.startsWith('//')&&!url.includes('\\');let safe=internal;try{safe=safe||new URL(url).protocol==='https:'}catch{}if(safe)return <a key={i} href={url} target={internal?undefined:'_blank'} rel={internal?undefined:'noopener noreferrer'}>{link[1]}</a>}if(part.startsWith('**')&&part.endsWith('**'))return <strong key={i}>{part.slice(2,-2)}</strong>;return <span key={i}>{part}</span>})}</>}
-export function Prose({body,anchors=false}:{body:string;anchors?:boolean}){return <div className="prose">{body.split(/\n\n+/).map((block,i)=>block.startsWith('## ')?<section key={i}><h2 id={anchors?'bolum-'+i:undefined} tabIndex={anchors?-1:undefined}><Inline text={block.split('\n')[0].slice(3)}/></h2>{block.includes('\n')&&<p><Inline text={block.split('\n').slice(1).join('\n')}/></p>}</section>:block.split('\n').every(x=>x.startsWith('- '))?<ul key={i}>{block.split('\n').map((line,j)=><li key={j}><Inline text={line.slice(2)}/></li>)}</ul>:<p key={i}><Inline text={block}/></p>)}</div>}
+import {
+  extractHeadings,
+  injectHeadingAnchors,
+  normalizeBlogContent,
+  sanitizeHtml
+} from './content-parser';
+
+export { extractHeadings };
+
+/**
+ * Geriye uyumluluk için eski proseHeadings API'sini destekler
+ */
+export function proseHeadings(body: string) {
+  return extractHeadings(body);
+}
+
+/**
+ * Makale İçindekiler Tablosu (Table of Contents)
+ */
+export function TableOfContents({
+  body,
+  title = 'Bu yazıda'
+}: {
+  body: string;
+  title?: string;
+}) {
+  const headings = extractHeadings(body);
+  if (headings.length < 2) return null;
+
+  return (
+    <nav className="article-toc" aria-label="İçindekiler">
+      <h2 className="toc-title">{title}</h2>
+      <ol className="toc-list">
+        {headings.map(h => (
+          <li
+            key={h.id}
+            className={`toc-item ${h.level === 3 ? 'toc-sub-item' : 'toc-main-item'}`}
+          >
+            <a href={'#' + h.id}>{h.title}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/**
+ * Zengin Metin ve Blog İçerik Render Bileşeni
+ * Hem yeni semantik HTML içerikleri hem de eski Markdown / düz metin içerikleri
+ * güvenli bir şekilde sanitize ederek ve doğru tipografiyle render eder.
+ */
+export function Prose({
+  body,
+  anchors = false,
+  className = ''
+}: {
+  body: string;
+  anchors?: boolean;
+  className?: string;
+}) {
+  if (!body) return null;
+
+  // 1. İçeriği normalize et (Markdown ise HTML'e çevir, HTML ise sanitize et)
+  let html = normalizeBlogContent(body);
+
+  // 2. Çapa (anchor) bağlantıları ekle
+  if (anchors) {
+    html = injectHeadingAnchors(html);
+  }
+
+  // 3. Son XSS sanitizasyon kontrolü
+  const cleanHtml = sanitizeHtml(html);
+
+  return (
+    <div
+      className={`article-content prose ${className}`.trim()}
+      dangerouslySetInnerHTML={{ __html: cleanHtml }}
+    />
+  );
+}

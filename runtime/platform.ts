@@ -1,7 +1,7 @@
 import 'server-only';
 import {DatabaseSync} from 'node:sqlite';
 import {mkdirSync,readFileSync,readdirSync,existsSync} from 'node:fs';
-import {readFile,writeFile,readdir,stat} from 'node:fs/promises';
+import {readFile,writeFile,readdir,stat,unlink} from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(process.env.DATA_DIR||'data');
 let connection:DatabaseSync|undefined;
@@ -9,5 +9,5 @@ function db(){if(connection)return connection;mkdirSync(root,{recursive:true,mod
 class Query{constructor(private sql:string,private values:unknown[]=[]){ }bind(...v:unknown[]){return new Query(this.sql,v)}execute(){const s=db().prepare(this.sql);const v=this.values.map(x=>x===undefined?null:x) as (string|number|null)[];if(s.columns().length){return {results:s.all(...v),meta:{changes:0}}}const result=s.run(...v);return {results:[],meta:{changes:Number(result.changes)}}}async first<T=Record<string,unknown>>(){return (this.execute().results[0] as T)||null}async all<T=Record<string,unknown>>(){const r=this.execute();return {...r,results:r.results as T[]}}async run(){return this.execute()}}
 const DB={prepare(sql:string){return new Query(sql)},async batch(queries:Query[]){db().exec('BEGIN IMMEDIATE');try{const result=queries.map(q=>q.execute());db().exec('COMMIT');return result}catch(e){db().exec('ROLLBACK');throw e}}};
 const mediaRoot=path.join(root,'uploads');function location(key:string){if(!/^[a-zA-Z0-9_.-]+$/.test(key)||key.includes('..'))throw Error('Invalid media key');mkdirSync(mediaRoot,{recursive:true,mode:0o700});return path.join(mediaRoot,key)}
-const MEDIA={async put(key:string,bytes:Uint8Array,_options?:unknown){await writeFile(location(key),bytes,{mode:0o600})},async head(key:string){return existsSync(location(key))?{key}:null},async get(key:string){try{const bytes=await readFile(location(key));return {body:new Uint8Array(bytes),httpMetadata:{contentType:key.endsWith('.png')?'image/png':key.endsWith('.webp')?'image/webp':'image/jpeg'}}}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e}},async list({limit=300}:{limit?:number}){mkdirSync(mediaRoot,{recursive:true});return {objects:(await readdir(mediaRoot)).slice(0,limit).map(key=>({key}))}}};
+const MEDIA={async put(key:string,bytes:Uint8Array,_options?:unknown){await writeFile(location(key),bytes,{mode:0o600})},async head(key:string){return existsSync(location(key))?{key}:null},async get(key:string){try{const bytes=await readFile(location(key));return {body:new Uint8Array(bytes),httpMetadata:{contentType:key.endsWith('.png')?'image/png':key.endsWith('.webp')?'image/webp':'image/jpeg'}}}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e}},async list({limit=300}:{limit?:number}){mkdirSync(mediaRoot,{recursive:true});return {objects:(await readdir(mediaRoot)).slice(0,limit).map(key=>({key}))}},async delete(key:string){try{await unlink(location(key))}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}};
 export const env={DB,MEDIA,get ADMIN_EMAIL(){return process.env.ADMIN_EMAIL||''},get SITE_ORIGIN(){return process.env.SITE_ORIGIN||'http://localhost:3000'}};

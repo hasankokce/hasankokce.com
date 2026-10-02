@@ -78,6 +78,15 @@ try{
  const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aBz8AAAAASUVORK5CYII=','base64'),form=new FormData();form.append('file',new Blob([png],{type:'image/png'}),'quality.png');
  const upload=await fetch(base+'/api/admin/media',{method:'POST',headers:{cookie,origin:base},body:form});assert.equal(upload.status,200);const media=await upload.json();assert(Buffer.from(await(await fetch(base+media.url)).arrayBuffer()).equals(png));
  for(const route of ['settings','posts','media','messages','newsletter','analytics','seo-audit']){assert.equal((await fetch(base+'/api/admin/'+route)).status,403);assert.equal((await fetch(base+'/api/admin/'+route,{headers:{cookie}})).status,200,route);}
+ const deleteRequest=(headers,body)=>fetch(base+'/api/admin/posts',{method:'DELETE',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(body)});
+ assert.equal((await deleteRequest({origin:base},{id:workflowPost.id,confirm:'DELETE'})).status,403);
+ assert.equal((await deleteRequest({cookie,origin:'https://wrong.example'},{id:workflowPost.id,confirm:'DELETE'})).status,403);
+ assert.equal((await deleteRequest({cookie,origin:base},{id:workflowPost.id})).status,400);
+ assert.equal((await deleteRequest({cookie,origin:base},{id:workflowPost.id,confirm:'DELETE'})).status,200);
+ assert(!(await admin('/api/admin/posts')).some(p=>p.id===workflowPost.id));
+ detail=await admin('/api/admin/workflow?id='+workflowPost.id);assert.equal(detail.draft,null);assert.equal(detail.history.length,0);assert(!detail.schedule);
+ assert.equal((await fetch(base+'/yazi/'+workflowPost.slug)).status,404);
+ const retry=await fetch(base+'/api/admin/posts',{method:'POST',headers:{cookie,origin:base,'Content-Type':'application/json'},body:JSON.stringify({...workflowPost,status:'published'})});assert(!retry.ok);
  console.log('PASS: forms, legal/FAQ/llms routes, authenticated admin endpoints, media upload/read, draft/restore/schedule/cancel/publish.');
  console.log('PASS: new content auto inclusion; concurrent deduplication; valid signed tickets; admin/bot/DNT/GPC exclusion; post read; prompt copy; product clicks; rename continuity; archive/delete history; period comparison; CSV; date validation; restart persistence.');
  if(process.argv.includes('--serve')){console.log('Preview ready at '+base+'/admin#analytics (isolated test data).');await new Promise(resolve=>{process.once('SIGINT',resolve);process.once('SIGTERM',resolve)})}
