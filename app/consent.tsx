@@ -1,0 +1,11 @@
+'use client';
+import {useEffect,useState} from 'react';
+import type {copyDefaults} from './site-copy';
+type Choice={analytics:boolean;ads:boolean;expires:number};
+const key='hk_consent_v1';
+export function readConsent():Choice|null{try{const v=JSON.parse(localStorage.getItem(key)||'null');return v&&v.expires>Date.now()&&typeof v.analytics==='boolean'&&typeof v.ads==='boolean'?v:null}catch{return null}}
+export function useConsent(category:'analytics'|'ads'){const [allowed,setAllowed]=useState(false);useEffect(()=>{const update=()=>setAllowed(!!readConsent()?.[category]);update();window.addEventListener('hk:consent',update);window.addEventListener('storage',update);return()=>{window.removeEventListener('hk:consent',update);window.removeEventListener('storage',update)}},[category]);return allowed}
+export default function Consent({copy:c}:{copy:typeof copyDefaults}){const [open,setOpen]=useState(false),[analytics,setAnalytics]=useState(false),[ads,setAds]=useState(false),[error,setError]=useState('');
+ useEffect(()=>{const v=readConsent();setOpen(!v);setAnalytics(v?.analytics||false);setAds(v?.ads||false)},[]);
+ function save(a:boolean,b:boolean){const old=readConsent();try{localStorage.setItem(key,JSON.stringify({analytics:a,ads:b,expires:Date.now()+180*86400000}));setAnalytics(a);setAds(b);setOpen(false);setError('');window.dispatchEvent(new Event('hk:consent'));if(old?.ads&&!b)location.reload()}catch{setError('Tarayıcı tercihleri kaydedemedi. İsteğe bağlı hizmetler kapalı tutuluyor.')}}
+ return <><button className="cookie-settings" type="button" onClick={()=>setOpen(true)}>{c.cookieSettings}</button>{open&&<section className="cookie-panel" aria-labelledby="cookie-heading"><h2 id="cookie-heading">{c.cookieTitle}</h2><p>{c.cookieBody} <a href="/gizlilik">{c.privacyLabel}</a></p><div className="cookie-options"><label><input type="checkbox" checked={analytics} onChange={e=>setAnalytics(e.target.checked)}/>{c.cookieAnalytics}</label><label><input type="checkbox" checked={ads} onChange={e=>setAds(e.target.checked)}/>{c.cookieAds}</label></div><div className="cookie-actions"><button onClick={()=>save(false,false)}>{c.cookieReject}</button><button onClick={()=>save(analytics,ads)}>{c.cookieSave}</button><button onClick={()=>save(true,true)}>{c.cookieAccept}</button></div>{error&&<p role="alert">{error}</p>}</section>}</>}

@@ -1,11 +1,13 @@
 'use client';
 import {useEffect,useRef} from 'react';
+import {useConsent} from './consent';
 import type {Settings} from './content';
 declare global{interface Window{adsbygoogle?:unknown[]}}
 export function AdSlot({settings:s,placement='article'}:{settings:Settings;placement?:'home'|'archive'|'article'}){
+ const consent=useConsent('ads');
  const ref=useRef<HTMLModElement>(null);
  const slot=placement==='home'?s.adsHomeSlot:placement==='archive'?s.adsArchiveSlot:s.adsSlot;
- const enabled=s.adsEnabled&&s.adsConsentReady&&/^ca-pub-\d{16}$/.test(s.adsClient)&&/^\d{10}$/.test(slot);
+ const enabled=consent&&s.adsEnabled&&s.adsConsentReady&&/^ca-pub-\d{16}$/.test(s.adsClient)&&/^\d{10}$/.test(slot);
  useEffect(()=>{
   if(!enabled)return;
   const element=ref.current;if(!element)return;

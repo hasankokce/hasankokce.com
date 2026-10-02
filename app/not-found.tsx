@@ -1,3 +1,3 @@
 import {getSettings} from './store';
-
-export default async function NotFound(){const s=await getSettings();return <main className="status-box"><span className="section-label">404</span><h1>{s.ui.notFoundTitle}</h1><p>{s.ui.notFoundBody}</p><a className="pill dark" href="/yazilar">{s.ui.articleBack}</a></main>}
+import {Header,Footer} from './site';
+export default async function NotFound(){const s=await getSettings();return <div className="public-site"><Header settings={s}/><main id="site-content" tabIndex={-1} className="status-box"><span className="section-label">404</span><h1>{s.ui.notFoundTitle}</h1><p>{s.ui.notFoundBody}</p><a className="pill dark" href="/yazilar">{s.ui.articleBack}</a><form className="search-form" action="/yazilar"><label htmlFor="missing-search">{s.ui.articleSearch}</label><input id="missing-search" type="search" name="q"/><button type="submit">Ara</button></form></main><Footer settings={s}/></div>}

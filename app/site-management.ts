@@ -5,8 +5,8 @@ export const homeSections = [
  {id:'about',label:'Kısa hakkımda'}, {id:'social',label:'Sosyal hesaplar'}
 ] as const;
 export type HomeSectionId=typeof homeSections[number]['id'];
-export const pagePaths=['/','/yazilar','/promptlar','/arac-kutusu','/kullandiklarim','/hakkimda','/iletisim','/gizlilik'] as const;
-export const pageNames=['Ana sayfa','Yazılar','Promptlar','Araç Kutusu','Kullandıklarım','Hakkımda','İletişim','Gizlilik'];
+export const pagePaths=['/','/yazilar','/promptlar','/arac-kutusu','/kullandiklarim','/hakkimda','/iletisim','/gizlilik','/kullanim-sartlari','/sss'] as const;
+export const pageNames=['Ana sayfa','Yazılar','Promptlar','Araç Kutusu','Kullandıklarım','Hakkımda','İletişim','Gizlilik','Kullanım şartları','Sık sorulan sorular'];
 export const managementDefaults={
  premiumMotion:true,logo:'',logoAlt:'Hasan Kökçe',monogram:'hk.',favicon:'',heroImageAlt:'Yeşil camdan modüler formlar',heroArtIndex:'[ HK—01 ]',
  background:'#f7f8f5',foreground:'#20221f',surface:'#f0f2ed',muted:'#596158',font:'sans' as 'sans'|'serif'|'system',

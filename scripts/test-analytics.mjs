@@ -22,7 +22,12 @@ const getReport=()=>admin('/api/admin/analytics');
 try{
  await start();await login();assert.equal((await fetch(base+'/api/admin/analytics')).status,403);
  const initial=await getReport();assert.equal(initial.totals.views,0);assert(initial.rows.some(r=>r.kind==='post'&&r.views===0));
- let settings=await admin('/api/admin/settings');assert.equal(settings.featuredPromptIds.length,4);const home=await (await fetch(base)).text();assert.equal((home.match(/class="prompt-card"/g)||[]).length,4);const posts=await admin('/api/admin/posts');const post={...posts.find(p=>p.status==='published'),id:'analytics-new-post',slug:'analytics-new-post',title:'Yeni test yazısı',featured:false,demo:false};
+ for(const path of ['/kullanim-sartlari','/sss','/gizlilik','/sitemap.xml','/robots.txt','/llms.txt']){const r=await fetch(base+path);assert.equal(r.status,200,path);const text=await r.text();assert(text.length>100);if(path==='/sitemap.xml')assert(text.includes('/sss'));if(path==='/llms.txt'){assert(text.includes('## Yazılar'));assert(!text.includes('/admin'));}}
+ assert.equal((await fetch(base+'/missing-quality-check')).status,404);
+ const contactBody={id:crypto.randomUUID(),name:'Test User',email:'test@example.test',subject:'Soru',message:'Isolated integration test message.'};
+ assert.equal((await fetch(base+'/api/contact',{method:'POST',headers:{origin:base,'Content-Type':'application/json'},body:JSON.stringify(contactBody)})).status,200);
+ assert.equal((await fetch(base+'/api/contact',{method:'POST',headers:{origin:'https://wrong.example','Content-Type':'application/json'},body:JSON.stringify(contactBody)})).status,403);
+ let settings=await admin('/api/admin/settings');assert(settings.ui.termsBody&&settings.ui.faqBody&&settings.ui.cookieBody);assert.equal(settings.featuredPromptIds.length,4);const home=await (await fetch(base)).text();assert.equal((home.match(/class="prompt-card"/g)||[]).length,4);const posts=await admin('/api/admin/posts');const post={...posts.find(p=>p.status==='published'),id:'analytics-new-post',slug:'analytics-new-post',title:'Yeni test yazısı',featured:false,demo:false};
  await admin('/api/admin/posts',post);
  const prompt={...settings.prompts[0],id:'analytics-new-prompt',slug:'analytics-new-prompt',title:'Yeni test promptu',visible:true};const gear={...settings.gear[0],id:'analytics-new-product',title:'Yeni test ürünü',url:'https://example.test/product',visible:true};
  settings.prompts.push(prompt);settings.gear.push(gear);await admin('/api/admin/settings',settings);
@@ -54,6 +59,21 @@ try{
  const current=report.from;const prev=report.previousFrom;db.prepare("INSERT INTO analytics_daily VALUES (?,'post',?,'view','Google','Mobil',7)").run(prev,post.id);
  report=await getReport();assert.equal(report.previous.pageViews,7);assert.equal(report.rows.find(r=>r.id===post.id).previousViews,7);db.close();
  await stop();await start();await login();const after=await getReport();assert.equal(after.totals.views,report.totals.views);assert.equal(after.rows.find(r=>r.id===prompt.id).copies,1);
+ // Editorial and media workflows use only this disposable database.
+ const workflowPost={...post,id:'workflow-check',slug:'workflow-check',status:'draft'};
+ let flow=await admin('/api/admin/workflow',{action:'draft',id:workflowPost.id,version:0,post:workflowPost});
+ let detail=await admin('/api/admin/workflow?id='+workflowPost.id);assert(detail.history.length);
+ const revision=detail.history[0].id;
+ flow=await admin('/api/admin/workflow',{action:'draft',id:workflowPost.id,version:flow.version,post:{...workflowPost,title:'Changed title'}});
+ flow=await admin('/api/admin/workflow',{action:'restore',id:workflowPost.id,version:flow.version,revisionId:revision});assert.equal(flow.post.title,workflowPost.title);
+ flow=await admin('/api/admin/workflow',{action:'schedule',id:workflowPost.id,version:flow.version,post:workflowPost,publishAt:new Date(Date.now()+3600000).toISOString()});
+ detail=await admin('/api/admin/workflow?id='+workflowPost.id);assert(detail.schedule);
+ flow=await admin('/api/admin/workflow',{action:'cancel',id:workflowPost.id,version:flow.version,post:workflowPost});
+ flow=await admin('/api/admin/workflow',{action:'publish',id:workflowPost.id,version:flow.version,post:workflowPost});assert.equal((await fetch(base+'/yazi/'+workflowPost.slug)).status,200);
+ const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aBz8AAAAASUVORK5CYII=','base64'),form=new FormData();form.append('file',new Blob([png],{type:'image/png'}),'quality.png');
+ const upload=await fetch(base+'/api/admin/media',{method:'POST',headers:{cookie,origin:base},body:form});assert.equal(upload.status,200);const media=await upload.json();assert(Buffer.from(await(await fetch(base+media.url)).arrayBuffer()).equals(png));
+ for(const route of ['settings','posts','media','messages','newsletter','analytics','seo-audit']){assert.equal((await fetch(base+'/api/admin/'+route)).status,403);assert.equal((await fetch(base+'/api/admin/'+route,{headers:{cookie}})).status,200,route);}
+ console.log('PASS: forms, legal/FAQ/llms routes, authenticated admin endpoints, media upload/read, draft/restore/schedule/cancel/publish.');
  console.log('PASS: new content auto inclusion; concurrent deduplication; valid signed tickets; admin/bot/DNT/GPC exclusion; post read; prompt copy; product clicks; rename continuity; archive/delete history; period comparison; CSV; date validation; restart persistence.');
  if(process.argv.includes('--serve')){console.log('Preview ready at '+base+'/admin#analytics (isolated test data).');await new Promise(resolve=>{process.once('SIGINT',resolve);process.once('SIGTERM',resolve)})}
 }finally{await stop()}
