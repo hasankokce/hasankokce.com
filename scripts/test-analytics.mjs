@@ -60,16 +60,21 @@ try{
  report=await getReport();assert.equal(report.previous.pageViews,7);assert.equal(report.rows.find(r=>r.id===post.id).previousViews,7);db.close();
  await stop();await start();await login();const after=await getReport();assert.equal(after.totals.views,report.totals.views);assert.equal(after.rows.find(r=>r.id===prompt.id).copies,1);
  // Editorial and media workflows use only this disposable database.
- const workflowPost={...post,id:'workflow-check',slug:'workflow-check',status:'draft'};
+ const workflowPost={...post,id:'workflow-check',slug:'workflow-check',status:'draft',tags:['Windows 11','Yedekleme']};
  let flow=await admin('/api/admin/workflow',{action:'draft',id:workflowPost.id,version:0,post:workflowPost});
  let detail=await admin('/api/admin/workflow?id='+workflowPost.id);assert(detail.history.length);
  const revision=detail.history[0].id;
  flow=await admin('/api/admin/workflow',{action:'draft',id:workflowPost.id,version:flow.version,post:{...workflowPost,title:'Changed title'}});
- flow=await admin('/api/admin/workflow',{action:'restore',id:workflowPost.id,version:flow.version,revisionId:revision});assert.equal(flow.post.title,workflowPost.title);
+ flow=await admin('/api/admin/workflow',{action:'restore',id:workflowPost.id,version:flow.version,revisionId:revision});assert.equal(flow.post.title,workflowPost.title);assert.deepEqual(flow.post.tags,workflowPost.tags);
  flow=await admin('/api/admin/workflow',{action:'schedule',id:workflowPost.id,version:flow.version,post:workflowPost,publishAt:new Date(Date.now()+3600000).toISOString()});
  detail=await admin('/api/admin/workflow?id='+workflowPost.id);assert(detail.schedule);
  flow=await admin('/api/admin/workflow',{action:'cancel',id:workflowPost.id,version:flow.version,post:workflowPost});
  flow=await admin('/api/admin/workflow',{action:'publish',id:workflowPost.id,version:flow.version,post:workflowPost});assert.equal((await fetch(base+'/yazi/'+workflowPost.slug)).status,200);
+ const articleHtml=await (await fetch(base+'/yazi/'+workflowPost.slug)).text();assert(articleHtml.includes('Windows 11'));assert(articleHtml.includes('keywords'));
+ const tagHtml=await (await fetch(base+'/yazilar?etiket='+encodeURIComponent('Windows 11'))).text();assert(tagHtml.includes('/yazi/workflow-check'));assert(!tagHtml.includes('/yazi/analytics-new-post'));
+ const latestPost=(await admin('/api/admin/posts')).find(p=>p.id===workflowPost.id);await admin('/api/admin/posts',{...latestPost,tags:[]});assert.deepEqual((await admin('/api/admin/posts')).find(p=>p.id===workflowPost.id).tags,['Windows 11','Yedekleme']); // editor preserves its separate draft
+ assert(!(await (await fetch(base+'/yazilar?etiket='+encodeURIComponent('Windows 11'))).text()).includes('/yazi/workflow-check'));
+
  const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aBz8AAAAASUVORK5CYII=','base64'),form=new FormData();form.append('file',new Blob([png],{type:'image/png'}),'quality.png');
  const upload=await fetch(base+'/api/admin/media',{method:'POST',headers:{cookie,origin:base},body:form});assert.equal(upload.status,200);const media=await upload.json();assert(Buffer.from(await(await fetch(base+media.url)).arrayBuffer()).equals(png));
  for(const route of ['settings','posts','media','messages','newsletter','analytics','seo-audit']){assert.equal((await fetch(base+'/api/admin/'+route)).status,403);assert.equal((await fetch(base+'/api/admin/'+route,{headers:{cookie}})).status,200,route);}
