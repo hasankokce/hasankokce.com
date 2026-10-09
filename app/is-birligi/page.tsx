@@ -1,2 +1,4 @@
 import {permanentRedirect} from 'next/navigation';
-export default function OldCollaboration(){permanentRedirect('/iletisim')}
+import {getLocale} from '../locale';
+import {localePath} from '../i18n';
+export default async function OldCollaboration(){permanentRedirect(localePath(await getLocale(),'/iletisim'))}

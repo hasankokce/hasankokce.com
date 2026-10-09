@@ -4,6 +4,7 @@ import {
   normalizeBlogContent,
   sanitizeHtml
 } from './content-parser';
+import { localePath, type Locale } from './i18n';
 
 export { extractHeadings };
 
@@ -52,11 +53,13 @@ export function TableOfContents({
 export function Prose({
   body,
   anchors = false,
-  className = ''
+  className = '',
+  locale = 'tr'
 }: {
   body: string;
   anchors?: boolean;
   className?: string;
+  locale?: Locale;
 }) {
   if (!body) return null;
 
@@ -69,7 +72,10 @@ export function Prose({
   }
 
   // 3. Son XSS sanitizasyon kontrolü
-  const cleanHtml = sanitizeHtml(html);
+  let cleanHtml = sanitizeHtml(html);
+
+  // 4. İngilizce sayfalarda site içi bağlantılar İngilizce sürüme gitsin
+  if (locale === 'en') cleanHtml = cleanHtml.replace(/href="(\/[^"]*)"/g, (_, url: string) => `href="${localePath('en', url)}"`);
 
   return (
     <div
