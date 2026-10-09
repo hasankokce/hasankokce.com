@@ -42,6 +42,9 @@
   ],
   "exclude": [
     "node_modules",
-    "private-export"
+    "private-export",
+    "examples",
+    "work",
+    "outputs"
   ]
 }
