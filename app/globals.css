@@ -833,13 +833,17 @@ input[type=checkbox]{accent-color:var(--brand-ink)}
 }
 
 /* Language switch and translation admin */
-.site-header-wrap .lang-switch{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0 12px;border:1px solid var(--border,#c7ccc0);border-radius:30px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--foreground);flex:none}
-.site-header-wrap .lang-switch:hover{background:var(--brand)}
+.lang-switch{display:inline-flex;align-items:center;gap:2px;padding:4px;border:1px solid var(--border);border-radius:999px;background:#fff;box-shadow:0 1px 2px #2230180a;flex:none;font-size:12px;font-weight:600;letter-spacing:.08em;line-height:1}
+.lang-switch>svg{margin:0 3px 0 7px;color:var(--muted-foreground)}
+.lang-switch>a,.lang-switch>.on{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;height:34px;padding:0 11px;border-radius:999px;color:var(--muted-foreground)}
+.lang-switch>a:hover{color:var(--foreground);background:var(--brand-soft)}
+.lang-switch>.on{background:var(--surface-dark);color:#fff}
+.lang-switch>.on::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--brand)}
 .site-header-wrap .header>.lang-switch{margin-left:auto}
 .site-header-wrap .header>nav~.lang-switch{margin-left:0}
-@media(max-width:1179px){.site-header-wrap .header>.lang-switch{margin-left:auto}}
+@media(max-width:1179px){.site-header-wrap .header>.lang-switch,.site-header-wrap .header>nav~.lang-switch{margin-left:auto}}
+.site-mobile-panel .mobile-lang{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 10px;font-size:14px;color:var(--muted-foreground)}
 .translation-admin table{width:100%;font-size:14px;margin:16px 0}
 .translation-admin small{display:block;margin:-12px 0 16px;color:var(--muted-foreground)}
 .translation-actions{display:flex;flex-wrap:wrap}
 @media(max-width:479px){.site-header-wrap .header>.lang-switch{display:none}}
-@media(min-width:480px){.site-mobile-panel .mobile-lang-link{display:none}}
