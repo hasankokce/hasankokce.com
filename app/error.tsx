@@ -1,3 +1,5 @@
 'use client';
 import {Button} from '@/components/ui/button';
-export default function ErrorPage({reset}:{reset:()=>void}){return <main className="status-box"><h1>İçerik şu an yüklenemiyor.</h1><p>Bağlantıda kısa süreli bir sorun oluştu. Biraz sonra yeniden deneyebilirsin.</p><Button onClick={reset}>Yeniden dene</Button></main>}
+import {usePathname} from 'next/navigation';
+import {fixed} from './i18n';
+export default function ErrorPage({reset}:{reset:()=>void}){const t=fixed(/^\/en(\/|$)/.test(usePathname()||'')?'en':'tr');return <main className="status-box"><h1>{t.errorTitle}</h1><p>{t.errorBody}</p><Button onClick={reset}>{t.errorRetry}</Button></main>}

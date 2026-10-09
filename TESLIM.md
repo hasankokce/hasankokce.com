@@ -62,3 +62,14 @@ Doğrulama: üretim derlemesi; `npm run test:analytics` ile izole geçici DB üz
 Kullanıcının yeni fotoğrafı Hakkımda ve ana sayfa imzasında kullanılır. Orijinal kişi yeniden üretilmedi; yalnızca WebP sıkıştırma/boyutlandırma yapıldı. Beyaz fon sayfa zeminine CSS multiply ile karıştırılır; bu gerçek alfa dekupe değildir ve çok koyu zeminlerde uygun görünmeyebilir. Varsayılan #f7f8f5 zeminde Safari görsel kontrolü yapıldı. 160/480/800/1120 genişlikli türevler sırasıyla yaklaşık 2,6/12,3/26,6/42,5 KB. Mobil/masaüstü srcSet seçimi ve sabit en-boy oranı mevcut.
 
 Marka ve tasarım > Hafif ışık ve hareket efektleri üzerinden açılıp kapatılabilir. Efektler tek seferlik 0,48/0,9 saniye giriş, hover transform/opacity ve statik renk geçişlerinden oluşur. Ek animasyon kütüphanesi, video veya animasyon zamanlayıcısı yoktur. Reduced-motion tercihi desteklenir. Yeni 0005 migration mevcut kayıtlı profil fotoğrafını bir kez yeni fotoğrafa geçirir; sonrasında fotoğraf admin üzerinden değiştirilebilir. Node üretim derlemesi, mevcut istatistik entegrasyon testleri, admin efekt aç/kapa kaydı ve Safari portre görünümü kontrol edildi. Canlı hosting üzerinde Lighthouse/Core Web Vitals testi yapılmadı.
+
+## İngilizce site ve otomatik çeviri — 9 Ekim 2026
+Site `/en` altında İngilizce yayınlanır (`/en/yazilar`, `/en/yazi/...`, `/en/promptlar/...`). Türkçe adresler değişmez. Üst menüde TR/EN dil düğmesi, sayfalarda hreflang bağlantıları ve sitemap'te İngilizce adresler bulunur. Bağlantı adları (slug) iki dilde aynıdır.
+
+Admin > İngilizce çeviri: OpenAI API anahtarı kaydetme/değiştirme/silme, model seçimi (varsayılan `gpt-5-mini`), "Bağlantıyı test et" ve otomatik çeviri anahtarı. Anahtar `SESSION_SECRET` ile türetilen AES-256-GCM anahtarıyla şifrelenip `settings` tablosunda saklanır; panelde yalnızca son dört karakteri görünür. `SESSION_SECRET` değişirse anahtar okunamaz, panelden yeniden girilmesi gerekir.
+
+Otomatik çeviri açıkken yazı yayınlama/zamanlama/kaydetme, site ayarları, promptlar ve bülten alanı kaydedildikten sonra yeni veya değişen metinler arka planda çevrilir. Çeviriler `translations` tablosunda (0016 migration) kaynak metnin özetiyle tutulur; kaynak değişince yeniden çevrilir. Henüz çevrilmemiş içerik İngilizce sayfada Türkçe görünür; çevrilmemiş yazıların İngilizce sayfası noindex olur. Taslaklar çevrilmez. Panelde içerik türüne göre çevrildi/güncellenmeli/bekliyor sayıları ve toplu çeviri düğmesi vardır.
+
+Kuyruk uygulama belleğindedir; yeniden başlatmada yarım kalan iş panelde "bekliyor" olarak görünür ve tek düğmeyle tamamlanır. RSS, bülten e-postaları, iletişim formu sunucu mesajları ve admin paneli Türkçe kalır.
+
+Doğrulama: `npm run test:translation` geçici veritabanı ve yerel sahte OpenAI sunucusuyla çalışır; gerçek API çağrısı yapmaz.

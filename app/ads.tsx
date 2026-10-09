@@ -2,6 +2,7 @@
 import {useEffect,useRef} from 'react';
 import {useConsent} from './consent';
 import type {Settings} from './content';
+import {fixed} from './i18n';
 declare global{interface Window{adsbygoogle?:unknown[]}}
 export function AdSlot({settings:s,placement='article'}:{settings:Settings;placement?:'home'|'archive'|'article'}){
  const consent=useConsent('ads');
@@ -17,5 +18,5 @@ export function AdSlot({settings:s,placement='article'}:{settings:Settings;place
   const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();load()}},{rootMargin:'250px'});observer.observe(element);return ()=>observer.disconnect();
  },[enabled,s.adsClient,slot]);
  if(!enabled)return null;
- return <aside className={'ad-space ad-'+placement} aria-label="Reklam"><span>REKLAM</span><ins key={s.adsClient+slot} ref={ref} className="adsbygoogle" style={{display:'block',minHeight:250}} data-ad-client={s.adsClient} data-ad-slot={slot} data-ad-format="auto" data-full-width-responsive="true"/></aside>;
+ return <aside className={'ad-space ad-'+placement} aria-label={fixed(s.locale).adLabel}><span>{fixed(s.locale).ad}</span><ins key={s.adsClient+slot} ref={ref} className="adsbygoogle" style={{display:'block',minHeight:250}} data-ad-client={s.adsClient} data-ad-slot={slot} data-ad-format="auto" data-full-width-responsive="true"/></aside>;
 }

@@ -1,0 +1,20 @@
+export type Locale='tr'|'en';
+export const localeHeader='x-site-locale';
+export const htmlLang:Record<Locale,string>={tr:'tr',en:'en'};
+export const ogLocale:Record<Locale,string>={tr:'tr_TR',en:'en_US'};
+export const schemaLanguage:Record<Locale,string>={tr:'tr-TR',en:'en-US'};
+
+// Paths that are never served under /en: APIs, admin, feeds and static files.
+const shared=/^\/(?:api|admin|_next|images|icons|feed\.xml|llms\.txt|ads\.txt|robots\.txt|sitemap\.xml|favicon|bulten|signin-with-chatgpt|signout-with-chatgpt)(?:[/?#.]|$)/;
+export function stripLocale(path:string){return path.replace(/^\/en(?=[/?#]|$)/,'')||'/'}
+export function localePath(locale:Locale|undefined,path:string){if(locale!=='en'||!path.startsWith('/')||path.startsWith('//')||shared.test(path))return path;if(/^\/en(?:[/?#]|$)/.test(path))return path;return path==='/'?'/en':/^\/[?#]/.test(path)?'/en'+path.slice(1):'/en'+path}
+export function alternatePath(locale:Locale,path:string){const base=stripLocale(path);return locale==='en'?base:localePath('en',base)}
+
+export function dateLabel(s:string,locale:Locale='tr'){return new Date(s+'T12:00:00').toLocaleDateString(locale==='en'?'en-US':'tr-TR',{day:'numeric',month:'long',year:'numeric'})}
+
+// Small interface strings that are written in code rather than managed from the admin panel.
+export const fixedCopy={
+ tr:{mainMenu:'Ana menü',mobileMenu:'Mobil ana menü',openMenu:'Menüyü aç',closeMenu:'Menüyü kapat',search:'Ara',searchArticles:'Yazılarda ara',searchPrompts:'Promptlarda ara',articleCategories:'Yazı kategorileri',articleTags:'Yazı etiketleri',promptCategories:'Prompt kategorileri',home:'Ana sayfa',ad:'REKLAM',adLabel:'Reklam',switchLabel:'Read in English',switchShort:'EN',switchLang:'en',articleNotFound:'Yazı bulunamadı',promptNotFound:'Prompt bulunamadı',promptTextLabel:'Kopyalanacak prompt metni',consentError:'Tarayıcı tercihleri kaydedemedi. İsteğe bağlı hizmetler kapalı tutuluyor.',newsletterKicker:'HAFTALIK TEKNOLOJİ NOTLARI',newsletterEmail:'E-posta adresin',newsletterPlaceholder:'sen@ornek.com',newsletterConsent:'Haftalık teknoloji bültenini e-posta ile almak istiyorum.',newsletterPrivacy:'Gizlilik bilgileri',newsletterNote:'İstediğin zaman ayrılabilirsin. Adresin doğrulanmadan listeye eklenmez.',newsletterBusy:'Gönderiliyor…',newsletterError:'Bağlantı kurulamadı. Tekrar dene.',newsletterDone:'',newsletterFailed:'',contactFailed:'Mesaj gönderilemedi.',contactRetry:'Bağlantını kontrol edip yeniden dene.',errorTitle:'İçerik şu an yüklenemiyor.',errorBody:'Bağlantıda kısa süreli bir sorun oluştu. Biraz sonra yeniden deneyebilirsin.',errorRetry:'Yeniden dene'},
+ en:{mainMenu:'Main menu',mobileMenu:'Mobile main menu',openMenu:'Open menu',closeMenu:'Close menu',search:'Search',searchArticles:'Search articles',searchPrompts:'Search prompts',articleCategories:'Article categories',articleTags:'Article tags',promptCategories:'Prompt categories',home:'Home',ad:'AD',adLabel:'Advertisement',switchLabel:'Türkçe oku',switchShort:'TR',switchLang:'tr',articleNotFound:'Article not found',promptNotFound:'Prompt not found',promptTextLabel:'Prompt text to copy',consentError:'Your browser could not save preferences. Optional services stay off.',newsletterKicker:'WEEKLY TECH NOTES',newsletterEmail:'Your email address',newsletterPlaceholder:'you@example.com',newsletterConsent:'I want to receive the weekly tech newsletter by email.',newsletterPrivacy:'Privacy information',newsletterNote:'You can unsubscribe at any time. Your address is only added after you confirm it.',newsletterBusy:'Sending…',newsletterError:'Could not connect. Please try again.',newsletterDone:'Thanks! Check your inbox and confirm your subscription.',newsletterFailed:'We could not add this address. Check it and try again.',contactFailed:'Your message could not be sent.',contactRetry:'Check your connection and try again.',errorTitle:'This content cannot be loaded right now.',errorBody:'There was a brief connection problem. Please try again in a moment.',errorRetry:'Try again'}
+} satisfies Record<Locale,Record<string,string>>;
+export function fixed(locale:Locale|undefined){return fixedCopy[locale==='en'?'en':'tr']}
