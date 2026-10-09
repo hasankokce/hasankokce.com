@@ -108,15 +108,38 @@ export default function PromptEditor({items,onChange,onDelete,renderMedia}:{item
     {textField('slug','Sayfa adresi',false,'/promptlar/ ile başlar. Videoda paylaştıktan sonra bu adresi değiştirmemeni öneririm.')}
     {textField('description','Kısa açıklama',true)}
     <div className="contact-fields">
-     {textField('category','Kategori',false,'Örnek: Portre, Ürün, 3D')}
-     {textField('tool','Araç / model',false,'Yalnızca denediğin model adını veya genel araç türünü yaz.')}
+     {textField('category','Kategori',false,'Örnek: Instagram Videoları, Portre, Ürün, 3D, Sinematik')}
+     {textField('tool','Araç / model',false,'Örnek: Midjourney v6.1, Flux.1, Google Gemini, Magnific AI')}
+    </div>
+    <div style={{display:'flex',gap:'6px',flexWrap:'wrap',marginTop:'-6px',marginBottom:'12px',alignItems:'center'}}>
+     <span style={{fontSize:'12px',color:'var(--muted-foreground)'}}>Hızlı seç:</span>
+     {['Instagram Videoları','Portre','Ürün','3D','Sinematik','Duvar Kağıdı'].map(cat => (
+      <button
+       key={cat}
+       type="button"
+       onClick={() => edit('category', cat)}
+       style={{
+        fontSize: '11px',
+        padding: '3px 10px',
+        borderRadius: '9999px',
+        border: item.category === cat ? '1px solid var(--brand-ink, #203017)' : '1px solid var(--border)',
+        background: item.category === cat ? 'var(--brand-ink, #203017)' : 'var(--surface-soft, #f7f9f6)',
+        color: item.category === cat ? '#fff' : 'inherit',
+        cursor: 'pointer',
+        fontWeight: item.category === cat ? 600 : 500,
+        transition: 'all 0.15s ease'
+       }}
+      >
+       {cat === 'Instagram Videoları' ? '🎬 ' : ''}{cat}
+      </button>
+     ))}
     </div>
     {renderMedia(item.image,v=>edit('image',v))}
     {textField('imageAlt','Görsel açıklaması',false,'Görseli göremeyen ziyaretçiler için kısa bir açıklama.')}
     {textField('prompt','Kopyalanacak prompt',true,'Satır sonları ve uzun metinler aynen kopyalanır. En fazla 30.000 karakter.')}
     <p className="admin-help">{item.prompt.length.toLocaleString('tr-TR')} karakter</p>
     {textField('notes','Dikkat edilmesi gerekenler',true,'Her satır ayrı bir madde olarak gösterilir. Referans fotoğraf, oran, değiştirilecek alanlar ve araç sınırlamalarını belirtebilirsin.')}
-    {textField('videoUrl','İlgili video bağlantısı',false,'İsteğe bağlı HTTPS bağlantısı. Boşsa video butonu görünmez.')}
+    {textField('videoUrl','Instagram videosu / Reels bağlantısı',false,'Örnek: https://www.instagram.com/reel/... Boşsa video izleme butonu gösterilmez.')}
     <p className="admin-help">Görünür kayıtların prompt metni, görseli ve görsel açıklaması dolu olmalı.</p>
     {item.visible&&<a href={'/promptlar/'+item.slug} target="_blank" rel="noopener noreferrer" className="text-link">Kaydedilmiş sayfayı aç ↗</a>}
     <div className="prompt-danger-zone">

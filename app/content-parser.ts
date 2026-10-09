@@ -17,8 +17,10 @@ const ALLOWED_ATTRS: Record<string, Set<string>> = {
   td: new Set(['colspan', 'rowspan', 'align']),
   div: new Set(['class']),
   span: new Set(['class']),
-  h2: new Set(['id']),
-  h3: new Set(['id']),
+  h2: new Set(['id', 'class']),
+  h3: new Set(['id', 'class']),
+  h4: new Set(['id', 'class']),
+  p: new Set(['class']),
   section: new Set(['id', 'class'])
 };
 
@@ -146,13 +148,18 @@ export function sanitizeHtml(rawHtml: string): string {
   return html;
 }
 
-function escapeHtmlAttr(str: string): string {
+export function escapeHtml(str: string): string {
+  if (!str) return '';
   return str
     .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeHtmlAttr(str: string): string {
+  return escapeHtml(str);
 }
 
 /**
@@ -192,6 +199,72 @@ export function formatInlineMarkdown(text: string): string {
 
   return out;
 }
+
+// Yerleşik Ürün Öneri Ön Tanımları (Affiliate / Tavsiye Edilen Ekipmanlar)
+export const BUILTIN_GEAR_PRESETS: Record<string, {
+  title: string;
+  badge: string;
+  desc: string;
+  note: string;
+  url: string;
+  buttonLabel: string;
+  image: string;
+}> = {
+  'anker-prime-67w': {
+    title: 'Anker Prime 67W GaN Hızlı Şarj Cihazı',
+    badge: 'Şarj & Adaptör',
+    desc: "MacBook, iPad ve iPhone'u aynı anda tek prizden ultra kompakt ve ısınmadan şarj edebilen vazgeçilmez seyahat ve masa adaptörüm.",
+    note: '⚡ 3 Portlu GaN Teknolojisi · F/P Lideri',
+    url: 'https://www.amazon.com.tr/',
+    buttonLabel: "Amazon'da İncele ↗",
+    image: '/images/prompt-product.webp'
+  },
+  'anker-maggo-qi2': {
+    title: 'Anker MagGo Qi2 Manyetik Kablosuz Powerbank (10.000 mAh)',
+    badge: 'Telefon Aksesuarı',
+    desc: "Yeni Qi2 standardı ile iPhone'u kablosuz 15W hızında şarj eden, arkasındaki katlanabilir standıyla masada video izlerken hayat kurtaran powerbank.",
+    note: '📱 15W Hızlı Manyetik Şarj · Entegre Stand',
+    url: 'https://www.hepsiburada.com/',
+    buttonLabel: "Hepsiburada'da Gör ↗",
+    image: '/images/prompt-smartwatch-titanium.webp'
+  },
+  'dji-mic-2': {
+    title: 'DJI Mic 2 Kablosuz Yaka Mikrofonu',
+    badge: 'Çekim & Ses',
+    desc: 'Instagram Reels ve YouTube videolarımda kullandığım, dahili 32-bit float kayıt özelliğiyle sesi asla patlatmayan ve ortam gürültüsünü filtreleyen mikrofon.',
+    note: '🎙️ 32-bit Float Dahili Kayıt · Akıllı Gürültü Engelleme',
+    url: 'https://www.amazon.com.tr/',
+    buttonLabel: 'Ürünü İncele ↗',
+    image: '/images/prompt-companion-robot.webp'
+  },
+  'logitech-mx-master-3s': {
+    title: 'Logitech MX Master 3S Ergonomik Kablosuz Mouse',
+    badge: 'Masa Düzeni & Verimlilik',
+    desc: 'Saatlerce kurgu ve yazı yazarken bile bileği yormayan, neredeyse tamamen sessiz tıklama mekanizmasına ve elektromanyetik MagSpeed tekerleğine sahip fare.',
+    note: '🖱️ 8.000 DPI Camda Çalışır · Sessiz Tıklama',
+    url: 'https://www.amazon.com.tr/',
+    buttonLabel: "Amazon'da İncele ↗",
+    image: '/images/prompt-desk.webp'
+  },
+  'keychron-k3-pro': {
+    title: 'Keychron K3 Pro Ultra İnce Mekanik Klavye',
+    badge: 'Masa Düzeni & Verimlilik',
+    desc: 'Hem Mac hem Windows ile kusursuz uyumlu, düşük profilli Gateron switch\'leri ve QMK/VIA programlanabilirlik özelliğiyle yazı yazmayı keyifli kılan mekanik klavye.',
+    note: '⌨️ Ultra-Slim Gövde · Bluetooth 5.1 & Kablolu',
+    url: 'https://www.hepsiburada.com/',
+    buttonLabel: "Hepsiburada'da Gör ↗",
+    image: '/images/prompt-isometric-developer-desk.webp'
+  },
+  'ugreen-revodok-pro-hub': {
+    title: 'Ugreen Revodok Pro 9-in-1 USB-C Çoklayıcı Hub',
+    badge: 'Aksesuarlar & Kablolar',
+    desc: 'MacBook ve Type-C dizüstü bilgisayarlar için çift 4K 60Hz HDMI çıkışı, 100W Power Delivery hızlı şarj ve gigabit ethernet sağlayan hepsi bir arada bağlantı istasyonu.',
+    note: '🔌 Çift 4K 60Hz HDMI · 100W PD Şarj Destekli',
+    url: 'https://www.amazon.com.tr/',
+    buttonLabel: 'Ürünü İncele ↗',
+    image: '/images/prompt-glass.webp'
+  }
+};
 
 /**
  * Markdown metnini temiz, semantik HTML'e dönüştürür.
@@ -275,6 +348,65 @@ export function markdownToHtml(md: string): string {
         blocks.push(tableHtml);
         continue;
       }
+    }
+
+    // 4b. Özel Ürün Öneri Kutusu: :::urun veya :::product
+    if (trimmed.startsWith(':::urun') || trimmed.startsWith(':::product')) {
+      const inlinePreset = trimmed
+        .replace(/^:::urun/i, '')
+        .replace(/^:::product/i, '')
+        .trim();
+      i++;
+      const fields: Record<string, string> = {};
+      while (i < lines.length && !lines[i].trim().startsWith(':::')) {
+        const itemLine = lines[i].trim();
+        const colonIdx = itemLine.indexOf(':');
+        if (colonIdx > 0) {
+          const key = itemLine.slice(0, colonIdx).trim().toLowerCase();
+          const val = itemLine.slice(colonIdx + 1).trim();
+          fields[key] = val;
+        }
+        i++;
+      }
+      if (i < lines.length && lines[i].trim().startsWith(':::')) {
+        i++; // skip closing :::
+      }
+
+      const presetKey = inlinePreset || fields.id || fields.preset || fields.urun || '';
+      const preset = presetKey ? BUILTIN_GEAR_PRESETS[presetKey] : undefined;
+
+      const title = fields.baslik || fields.title || fields.ad || fields.name || preset?.title || 'Tavsiye Edilen Ürün';
+      const badge = fields.rozet || fields.badge || fields.etiket || preset?.badge || "Hasan'ın Önerisi";
+      const desc = fields.aciklama || fields.desc || fields.description || preset?.desc || '';
+      const note = fields.not || fields.note || fields.fiyat || fields.price || preset?.note || '';
+      const url = sanitizeUrl(fields.url || fields.link || preset?.url || '');
+      const buttonLabel = fields.buton || fields.button || preset?.buttonLabel || 'Ürünü İncele ↗';
+      const image = fields.gorsel || fields.image || fields.resim || preset?.image || '';
+
+      let cardHtml = '<div class="product-callout">';
+      cardHtml += '<div class="product-callout-header">';
+      cardHtml += `<span class="product-callout-badge">⭐ ${escapeHtml(badge)}</span>`;
+      if (note) {
+        cardHtml += `<span class="product-callout-note">${escapeHtml(note)}</span>`;
+      }
+      cardHtml += '</div>';
+
+      cardHtml += '<div class="product-callout-body">';
+      if (image) {
+        cardHtml += `<div class="product-callout-media"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="lazy" /></div>`;
+      }
+      cardHtml += '<div class="product-callout-main">';
+      cardHtml += `<h4 class="product-callout-title">${escapeHtml(title)}</h4>`;
+      if (desc) {
+        cardHtml += `<p class="product-callout-desc">${formatInlineMarkdown(desc)}</p>`;
+      }
+      if (url) {
+        cardHtml += `<div class="product-callout-action"><a href="${url}" class="product-callout-btn" target="_blank" rel="sponsored noopener noreferrer">${escapeHtml(buttonLabel)}</a></div>`;
+      }
+      cardHtml += '</div></div></div>';
+
+      blocks.push(cardHtml);
+      continue;
     }
 
     // 5. Blockquote: > Alıntı
