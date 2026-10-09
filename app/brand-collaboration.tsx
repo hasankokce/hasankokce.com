@@ -7,7 +7,7 @@ export function BrandCollaboration({settings:s}:{settings:Settings}) {
       <div>
         <span className="section-label">{s.ui.brandLabel}</span>
         <h2 id="brand-title">{s.collabTitle}</h2>
-        <Prose body={s.collabBody}/>
+        <Prose body={s.collabBody} locale={s.locale}/>
         <div className="brand-actions">
           <a href={s.management.showContactForm?"#iletisim-formu":"mailto:"+s.email} className="pill dark">{s.ui.brandProject}</a>
           {s.mediaKitUrl&&<a className="text-link" href={s.mediaKitUrl} target="_blank" rel="noopener noreferrer">{s.ui.brandKit}</a>}

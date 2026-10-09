@@ -10,7 +10,8 @@
     "build": "next build --webpack",
     "start": "node scripts/start.mjs",
     "admin:password": "node scripts/password.mjs",
-    "test:analytics": "node scripts/test-analytics.mjs"
+    "test:analytics": "node scripts/test-analytics.mjs",
+    "test:translation": "node scripts/test-translation.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

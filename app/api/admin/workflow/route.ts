@@ -1,3 +1,5 @@
+import {after} from 'next/server';
+import {autoTranslate} from '../../../../runtime/translator';
 import {guard,isAdmin} from '../../../auth';
 import {database,initializeContent,getPosts,releaseDueSchedules} from '../../../store';
 import {draftSchema} from '../../../editorial';
@@ -29,5 +31,5 @@ if(i.action==='publish'){
 if(i.action==='archive'||i.action==='unarchive'){const status=i.action==='archive'?'archived':'draft';statements.push(db.prepare("UPDATE posts SET status=?,data=json_set(data,'$.status',?) WHERE id=? AND EXISTS(SELECT 1 FROM editorial_drafts WHERE id=? AND token=?)").bind(status,status,i.id,i.id,token))}
 if(['publish','cancel','archive','unarchive'].includes(i.action))statements.push(db.prepare('DELETE FROM post_schedules WHERE id=? AND EXISTS(SELECT 1 FROM editorial_drafts WHERE id=? AND token=?)').bind(i.id,i.id,token));
 statements.push(db.prepare('DELETE FROM editorial_revisions WHERE post_id=? AND id NOT IN (SELECT id FROM editorial_revisions WHERE post_id=? ORDER BY created_at DESC LIMIT 50)').bind(i.id,i.id));
-const results=await db.batch(statements);if(!results[1].results.length)return Response.json({conflict:true,error:'Bu yazı başka bir sekmede değişti. Metnini kopyalayıp editörü yeniden aç; eski içerikle üzerine yazılmadı.'},{status:409});return Response.json({ok:true,version,updatedAt:now,post:p,posts:await getPosts(true)});
+const results=await db.batch(statements);if(!results[1].results.length)return Response.json({conflict:true,error:'Bu yazı başka bir sekmede değişti. Metnini kopyalayıp editörü yeniden aç; eski içerikle üzerine yazılmadı.'},{status:409});if(publishing)after(autoTranslate);return Response.json({ok:true,version,updatedAt:now,post:p,posts:await getPosts(true)});
 }catch(e){console.error('workflow',e);return Response.json({error:e instanceof z.ZodError?'Alanları kontrol et; taslak kaydedilemedi.':String(e).includes('UNIQUE')?'Bu bağlantı adı zaten kullanılıyor.':'İşlem tamamlanamadı. Metnin editörde korunuyor.'},{status:e instanceof z.ZodError?400:503})}}
