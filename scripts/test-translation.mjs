@@ -74,6 +74,20 @@ try{
  const manual={...fresh,id:'translation-manual-post',slug:'translation-manual-post',title:'Henüz çevrilmedi'};await admin('/api/admin/posts',manual);
  const pending=await page('/en/yazi/'+manual.slug);assert.equal(pending.status,200);assert(pending.html.includes('Henüz çevrilmedi'));assert(pending.html.includes('noindex'),'untranslated english page is noindex');
 
+ // Per-item list and single-item translation: only the chosen post is translated, other kinds stay untouched.
+ let list=await admin('/api/admin/translation?items=post');const row=list.items.find(i=>i.id===manual.id);assert(row&&row.state==='missing'&&row.label==='Henüz çevrilmedi','post listed as missing');
+ assert.equal((await admin('/api/admin/translation?items=term')).items.every(i=>typeof i.label==='string'),true);
+ const before=(await translation()).status;
+ d=await translation({action:'translate',kind:'post',ids:[manual.id]});assert.equal(d.message,'Çeviri sırasına alındı.');d=await idle();
+ list=await admin('/api/admin/translation?items=post');assert.equal(list.items.find(i=>i.id===manual.id).state,'done','single post translated');assert.equal(list.items.find(i=>i.id===manual.id).english,'EN:Henüz çevrilmedi');
+ assert.deepEqual(d.status.prompt,before.prompt,'prompts untouched by single post translation');
+ // A translated item can be re-translated on request.
+ const calls0=calls.length;await translation({action:'translate',kind:'post',ids:[manual.id]});await idle();assert(calls.length>calls0,'re-translate calls OpenAI again');
+ assert.equal((await admin('/api/admin/translation',{action:'translate',kind:'post',ids:['no-such-post']},false)).status,404);
+ // Section sync only queues that kind.
+ settings.prompts[0].title=settings.prompts[0].title+' yeni';await admin('/api/admin/settings',settings);settings.heroDescription='Bölüm testi';await admin('/api/admin/settings',settings);
+ d=await translation({action:'sync',kind:'prompt'});d=await idle();assert.equal(d.status.prompt.outdated+d.status.prompt.missing,0,'prompt section synced');assert(d.status.site.outdated+d.status.site.missing>0,'site texts left for later');
+
  // Quota errors are reported and stop the queue.
  failNext=99;await translation({action:'sync'});d=await idle();assert(d.job.failed>0);assert.match(d.job.lastError,/bakiye/);failNext=0;
 

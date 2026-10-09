@@ -70,11 +70,26 @@ export async function translationStatus(){
  return {status,pending};
 }
 
+// One row per unit for the admin list: Turkish label, its state and the English title when one exists.
+export type ItemState='done'|'outdated'|'missing';
+export type TranslationItem={id:string;label:string;english:string;state:ItemState};
+const short=(v:string,n=140)=>{const t=v.replace(/<[^>]+>/g,' ').replace(/[#*_`>\[\]]/g,'').replace(/\s+/g,' ').trim();return t.length>n?t.slice(0,n-1)+'…':t};
+export async function translationItems(kind:UnitKind):Promise<TranslationItem[]>{
+ const [units,stored]=await Promise.all([currentUnits(),readTranslations([kind])]);
+ return units.filter(u=>u.kind===kind).map(u=>{const t=stored.get(u.kind+'|'+u.id);const main=u.fields.title||u.fields.text||Object.values(u.fields)[0]||u.id;
+  return {id:u.id,label:short(kind==='site'?u.id.replace(/\|/g,' › ')+': '+main:main),english:t?short(t.data.title||t.data.text||''):'',state:!t?'missing':t.hash!==u.hash?'outdated':'done'}});
+}
+// Picks units by kind and id; translated ones are included too, so "re-translate" works.
+export async function unitsFor(kind:UnitKind,ids?:string[]){const all=(await currentUnits()).filter(u=>u.kind===kind);if(!ids)return all;const wanted=new Set(ids);return all.filter(u=>wanted.has(u.id))}
+
 // Background queue. One process serves the site, so in-memory state is enough; unfinished work is found again by translationStatus.
 type Job={running:boolean;total:number;done:number;failed:number;lastError:string;startedAt:string;finishedAt:string};
-const g=globalThis as typeof globalThis&{__hkTranslation?:{job:Job;queue:Map<string,Unit>}};
-const state=g.__hkTranslation??={job:{running:false,total:0,done:0,failed:0,lastError:'',startedAt:'',finishedAt:''},queue:new Map()};
-export const jobState=()=>({...state.job,queued:state.queue.size});
+const g=globalThis as typeof globalThis&{__hkTranslation?:{job:Job;queue:Map<string,Unit>;active?:Set<string>}};
+type State={job:Job;queue:Map<string,Unit>;active?:Set<string>};
+const state:State=g.__hkTranslation??={job:{running:false,total:0,done:0,failed:0,lastError:'',startedAt:'',finishedAt:''},queue:new Map(),active:new Set()};
+const active=state.active??=new Set<string>();
+// Keys waiting or being translated, so the panel can mark those rows.
+export const jobState=()=>({...state.job,queued:state.queue.size,items:[...state.queue.keys(),...active]});
 const budget=6000;
 function nextBatch():Unit[]{const batch:Unit[]=[];let size=0;for(const [key,u] of state.queue){const n=JSON.stringify(u.fields).length;if(batch.length&&(size+n>budget||u.kind==='post'||batch[0].kind==='post'))continue;batch.push(u);size+=n;state.queue.delete(key);if(u.kind==='post'||size>=budget)break}return batch}
 async function translateBatch(cfg:TranslationConfig,batch:Unit[]){
@@ -84,10 +99,12 @@ async function translateBatch(cfg:TranslationConfig,batch:Unit[]){
 }
 async function worker(cfg:TranslationConfig){
  for(let batch=nextBatch();batch.length;batch=nextBatch()){
+  const keys=batch.map(u=>u.kind+'|'+u.id);keys.forEach(k=>active.add(k));
   try{await translateBatch(cfg,batch);state.job.done+=batch.length}
   catch(e){state.job.failed+=batch.length;state.job.lastError=e instanceof Error?e.message:String(e);console.error('translation',state.job.lastError);
    // A bad key or empty balance fails every request; stop instead of burning through the queue.
    if(e instanceof TranslationError&&/anahtar|bakiye|Model bulunamadı|erişimi yok/.test(e.message)){state.job.failed+=state.queue.size;state.queue.clear()}}
+  finally{keys.forEach(k=>active.delete(k))}
  }
 }
 export async function enqueue(units:Unit[]){
